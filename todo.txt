@@ -1,0 +1,11 @@
+TODO
+
+Add a copy constructor to Employee for the duplicator button. 
+
+Connect the duplicate and remove buttons.
+
+Add priority attribute to Employee class.
+
+Connect the availability table to the update button. 
+
+Let the changes made in the program update the json files.

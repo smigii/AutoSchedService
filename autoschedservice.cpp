@@ -27,6 +27,7 @@ autoschedservice::autoschedservice(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::autoschedservice)
 {
+    empvec.reserve(40);
     load_employees(empvec);
     load_manpower(manpvec);
     ui->setupUi(this);
@@ -141,5 +142,20 @@ void autoschedservice::on_btn_empUpdate_clicked()
 void autoschedservice::on_btn_empAdd_clicked()
 {
     empvec.push_back(Employee(empvec.size(), "New Employee", "None", false, 0,0,0,0));
+    ui->listWidget_emps->addItem(QString::fromStdString(empvec.at(empvec.size()-1).get_name()));
+}
+
+void autoschedservice::on_btn_empDupe_clicked()
+{
+    // Get index of selected employee
+    int index = ui->lbl_empIdVal->text().toInt();
+    // Create temp instance using copy constructor
+    Employee temp = empvec.at(index);
+    // Set temps id
+    temp.set_id(empvec.size());
+    temp.set_name(empvec.at(index).get_name() + " (copy)");
+    // Poosh it
+    empvec.push_back(temp);
+    // Update ui list
     ui->listWidget_emps->addItem(QString::fromStdString(empvec.at(empvec.size()-1).get_name()));
 }

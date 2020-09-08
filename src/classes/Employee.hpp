@@ -26,10 +26,14 @@ class Employee
 	public:
 		
 		Employee(unsigned int, std::string, std::string, bool, int, int, int, int);
+        Employee(const Employee &emp);
+        Employee(Employee &&emp);
+        ~Employee();
 
 		friend std::ostream &operator<<(std::ostream &output, const Employee &Emp);
 
 		unsigned int get_id() const;
+        void set_id(unsigned int id);
 
 		bool is_closer() const;
 		void set_closer(bool b);

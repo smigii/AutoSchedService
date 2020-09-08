@@ -4,6 +4,25 @@ Employee::Employee(unsigned int id, std::string name, std::string role, bool clo
 : id{id}, name{name}, role{role}, closer{closer}, max_h{max_h}, min_h{min_h}, max_d{max_d}, min_d{min_d}
 {
 	avail.resize(7);
+    std::cout << "CONSTRUCTOR called for " << this->name << std::endl;
+}
+
+Employee::Employee(const Employee &emp)
+    :id{emp.id}, name{emp.name}, role{emp.role}, closer{emp.closer}, max_h{emp.max_h}, min_h{emp.min_h}, max_d{emp.max_d}, min_d{emp.min_d}, avail{emp.avail}
+{
+    std::cout << "COPY CONSTRUCTOR called for " << this->name << std::endl;
+//    name = name + " (copy)";
+//    avail = emp.avail;
+}
+Employee::Employee(Employee &&emp)
+    :id{emp.id}, name{emp.name}, role{emp.role}, closer{emp.closer}, max_h{emp.max_h}, min_h{emp.min_h}, max_d{emp.max_d}, min_d{emp.min_d}, avail{emp.avail}
+{
+    avail = emp.avail;
+    std::cout << "MOVE CONSTRUCTOR called for " << this->name << std::endl;
+
+}
+Employee::~Employee(){
+    std::cout << "DESTRUCTOR called for " << this->name << std::endl;
 }
 
 std::ostream &operator<<(std::ostream &output, const Employee &Emp){ 
@@ -18,6 +37,9 @@ std::ostream &operator<<(std::ostream &output, const Employee &Emp){
 
 unsigned int Employee::get_id() const{
 	return id;
+}
+void Employee::set_id(unsigned int ID){
+    id = ID;
 }
 
 bool Employee::is_closer() const{
