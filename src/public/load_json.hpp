@@ -35,13 +35,14 @@ void load_employees(std::vector<Employee>& vec_emps){
 		auto jname = element.find("name");
 		auto jcloser = element.find("closer");
 		auto jrole = element.find("role");
+        auto jpri = element.find("priority");
 
 		auto jmax_h = element.find("max_hours");
 		auto jmax_d = element.find("max_days");
 		auto jmin_h = element.find("min_hours");
 		auto jmin_d = element.find("min_days");
 
-        vec_emps.push_back(Employee(id, *jname, *jrole, *jcloser, *jmax_h, *jmin_h, *jmax_d, *jmin_d));
+        vec_emps.push_back(Employee(id, *jname, *jrole, *jcloser, *jmax_h, *jmin_h, *jmax_d, *jmin_d, *jpri));
 
         vec_emps.at(id).set_avail(0, *(element.find("sun")));
         vec_emps.at(id).set_avail(1, *(element.find("mon")));

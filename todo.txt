@@ -1,11 +1,9 @@
 TODO
 
-Add a copy constructor to Employee for the duplicator button. 
+Create UI for Scheduling, should be able to create, view and clear
 
-Connect the duplicate and remove buttons.
-
-Add priority attribute to Employee class.
-
-Connect the availability table to the update button. 
+Create UI for manpower, should be able to create, view and edit
 
 Let the changes made in the program update the json files.
+
+Back to work on scheduling algorithm

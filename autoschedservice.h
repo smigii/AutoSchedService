@@ -17,6 +17,12 @@ public:
 
     void set_emp_list();
 
+    void sched_table_update(int start, int end);
+
+    void sched_table_add();
+
+    void sched_table_rm(int row);
+
 private slots:
     void on_listWidget_emps_itemSelectionChanged();
 

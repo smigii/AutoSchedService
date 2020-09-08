@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1060</width>
-    <height>626</height>
+    <width>1260</width>
+    <height>782</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -229,7 +229,7 @@ QTabBar::tab:left:only-one, QTabBar::tab:right:only-one {
                </brush>
               </property>
               <property name="flags">
-               <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
+               <set>ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
               </property>
              </item>
              <item row="0" column="1">
@@ -255,7 +255,7 @@ QTabBar::tab:left:only-one, QTabBar::tab:right:only-one {
                </brush>
               </property>
               <property name="flags">
-               <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
+               <set>ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
               </property>
              </item>
              <item row="0" column="2">
@@ -281,7 +281,7 @@ QTabBar::tab:left:only-one, QTabBar::tab:right:only-one {
                </brush>
               </property>
               <property name="flags">
-               <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
+               <set>ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
               </property>
              </item>
              <item row="0" column="3">
@@ -298,7 +298,7 @@ QTabBar::tab:left:only-one, QTabBar::tab:right:only-one {
                </brush>
               </property>
               <property name="flags">
-               <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
+               <set>ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
               </property>
              </item>
              <item row="0" column="4">
@@ -315,7 +315,7 @@ QTabBar::tab:left:only-one, QTabBar::tab:right:only-one {
                </brush>
               </property>
               <property name="flags">
-               <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
+               <set>ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
               </property>
              </item>
              <item row="0" column="5">
@@ -332,7 +332,7 @@ QTabBar::tab:left:only-one, QTabBar::tab:right:only-one {
                </brush>
               </property>
               <property name="flags">
-               <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
+               <set>ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
               </property>
              </item>
              <item row="0" column="6">
@@ -349,7 +349,7 @@ QTabBar::tab:left:only-one, QTabBar::tab:right:only-one {
                </brush>
               </property>
               <property name="flags">
-               <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
+               <set>ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
               </property>
              </item>
              <item row="1" column="0">
@@ -449,7 +449,8 @@ QTabBar::tab:left:only-one, QTabBar::tab:right:only-one {
             </sizepolicy>
            </property>
            <property name="styleSheet">
-            <string notr="true">color: rgb(211, 215, 207);</string>
+            <string notr="true">color: rgb(211, 215, 207);
+border: 1px solid rgb(88, 88, 88);</string>
            </property>
           </widget>
          </item>
@@ -589,7 +590,7 @@ QTabBar::tab:left:only-one, QTabBar::tab:right:only-one {
           </widget>
          </item>
          <item row="8" column="6">
-          <widget class="QSpinBox" name="spinBox"/>
+          <widget class="QSpinBox" name="spinBox_empPriority"/>
          </item>
         </layout>
        </item>
@@ -759,6 +760,13 @@ border-color: rgb(0, 0, 0);</string>
        <string> Shift Manager </string>
       </property>
       <layout class="QGridLayout" name="gridLayout_4">
+       <item row="0" column="3">
+        <widget class="QPushButton" name="btn_shiftAdd_4">
+         <property name="text">
+          <string>Update</string>
+         </property>
+        </widget>
+       </item>
        <item row="0" column="2">
         <widget class="QPushButton" name="btn_shiftAdd_3">
          <property name="text">
@@ -773,24 +781,10 @@ border-color: rgb(0, 0, 0);</string>
          </property>
         </widget>
        </item>
-       <item row="0" column="3">
-        <widget class="QPushButton" name="btn_shiftAdd_4">
-         <property name="text">
-          <string>Update</string>
-         </property>
-        </widget>
-       </item>
        <item row="0" column="1">
         <widget class="QPushButton" name="btn_shiftAdd_2">
          <property name="text">
           <string>Duplicate</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="2">
-        <widget class="QPushButton" name="pushButton_2">
-         <property name="text">
-          <string>PushButton</string>
          </property>
         </widget>
        </item>
@@ -812,12 +806,145 @@ border-color: rgb(0, 0, 0);</string>
        <string> Scheduling </string>
       </property>
       <layout class="QGridLayout" name="gridLayout_3">
-       <item row="1" column="0">
-        <widget class="QPushButton" name="pushButton">
+       <item row="0" column="1">
+        <widget class="QPushButton" name="pushButton_2">
+         <property name="styleSheet">
+          <string notr="true">color: rgb(252, 175, 62);</string>
+         </property>
          <property name="text">
-          <string>PushButton</string>
+          <string>Clear</string>
          </property>
         </widget>
+       </item>
+       <item row="0" column="4">
+        <widget class="QPushButton" name="pushButton_3">
+         <property name="styleSheet">
+          <string notr="true">color: rgb(138, 226, 52);</string>
+         </property>
+         <property name="text">
+          <string>Assign</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="3">
+        <widget class="QComboBox" name="comboBox"/>
+       </item>
+       <item row="2" column="0" colspan="5">
+        <widget class="QTableWidget" name="tableWidget_schedule">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
+         <property name="rowCount">
+          <number>1</number>
+         </property>
+         <property name="columnCount">
+          <number>8</number>
+         </property>
+         <attribute name="horizontalHeaderVisible">
+          <bool>false</bool>
+         </attribute>
+         <attribute name="horizontalHeaderHighlightSections">
+          <bool>true</bool>
+         </attribute>
+         <attribute name="horizontalHeaderStretchLastSection">
+          <bool>false</bool>
+         </attribute>
+         <attribute name="verticalHeaderVisible">
+          <bool>false</bool>
+         </attribute>
+         <attribute name="verticalHeaderStretchLastSection">
+          <bool>false</bool>
+         </attribute>
+         <row/>
+         <column/>
+         <column/>
+         <column/>
+         <column/>
+         <column/>
+         <column/>
+         <column/>
+         <column/>
+         <item row="0" column="0">
+          <property name="flags">
+           <set>ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
+          </property>
+         </item>
+         <item row="0" column="1">
+          <property name="text">
+           <string>Sun</string>
+          </property>
+          <property name="flags">
+           <set>ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
+          </property>
+         </item>
+         <item row="0" column="2">
+          <property name="text">
+           <string>Mon</string>
+          </property>
+          <property name="flags">
+           <set>ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
+          </property>
+         </item>
+         <item row="0" column="3">
+          <property name="text">
+           <string>Tue</string>
+          </property>
+          <property name="flags">
+           <set>ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
+          </property>
+         </item>
+         <item row="0" column="4">
+          <property name="text">
+           <string>Wed</string>
+          </property>
+          <property name="flags">
+           <set>ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
+          </property>
+         </item>
+         <item row="0" column="5">
+          <property name="text">
+           <string>Thu</string>
+          </property>
+          <property name="flags">
+           <set>ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
+          </property>
+         </item>
+         <item row="0" column="6">
+          <property name="text">
+           <string>Fri</string>
+          </property>
+          <property name="flags">
+           <set>ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
+          </property>
+         </item>
+         <item row="0" column="7">
+          <property name="text">
+           <string>Sat</string>
+          </property>
+          <property name="flags">
+           <set>ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QPushButton" name="pushButton">
+         <property name="styleSheet">
+          <string notr="true">color: rgb(138, 226, 52);</string>
+         </property>
+         <property name="text">
+          <string>Create</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="2">
+        <widget class="QDateEdit" name="dateEdit"/>
        </item>
       </layout>
      </widget>

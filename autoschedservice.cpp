@@ -15,20 +15,14 @@ using json = nlohmann::json;
 
 /*
 TODO:
-
-On Remove Click:
-    CRASH when clicking UPDATE after REMOVING an employee and not selecting a new one, i.e, trying to update a removed employee.
+    Need to add some string validation to time_to_float()
+    Remove button doesnt always update Schedule table properly, sometimes it doesn't feel like doing its job :/
 
 */
 
-// Create the employee master vector and fill it with employee data
-// from employees.json
+// Create the master vectors of employees and manpower, and the main schedule object.
 std::vector<Employee> empvec;
-
-// Create the manpower master vector and fill it with manpower data
-// from manpower.json
 std::vector<Manpower> manpvec;
-
 Schedule schedule;
 
 autoschedservice::autoschedservice(QWidget *parent)
@@ -52,6 +46,10 @@ autoschedservice::autoschedservice(QWidget *parent)
     ui->tableWidget_avail->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     ui->tableWidget_avail->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 
+    // Schedule table setup
+    ui->tableWidget_schedule->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->tableWidget_schedule->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+
     // Lets us easily make changes to availabilty table
     for(size_t d = 0; d < 7; d++){
         for(size_t s = 1; s < 5; s++){
@@ -59,6 +57,17 @@ autoschedservice::autoschedservice(QWidget *parent)
             ui->tableWidget_avail->setItem(s, d, pCell);
         }
     }
+
+    // Lets us easily make changes to schedule table
+    ui->tableWidget_schedule->setRowCount(empvec.size()+1);
+    for(size_t d = 0; d < 8; d++){
+        for(size_t e =1; e < empvec.size()+1; e++){
+            QTableWidgetItem* pCell = new QTableWidgetItem;
+            ui->tableWidget_schedule->setItem(e, d, pCell);
+        }
+    }
+
+    sched_table_update(0, empvec.size());
 }
 
 autoschedservice::~autoschedservice()
@@ -70,6 +79,23 @@ void autoschedservice::set_emp_list(){
     for(size_t i = 0; i < empvec.size(); i++){
         ui->listWidget_emps->addItem(QString::fromStdString(empvec.at(i).get_name()));
     }
+}
+void autoschedservice::sched_table_update(int start, int end){
+    for(int i = start; i < end; i++){
+        ui->tableWidget_schedule->item(i+1, 0)->setText(QString::fromStdString(empvec.at(i).get_name()));
+    }
+}
+void autoschedservice::sched_table_add(){
+    int row_idx = empvec.size();
+    ui->tableWidget_schedule->insertRow(empvec.size());
+    for(size_t i = 0; i < 8; i++){
+        QTableWidgetItem* pCell = new QTableWidgetItem;
+        ui->tableWidget_schedule->setItem(row_idx, i, pCell);
+    }
+    sched_table_update(row_idx-1, row_idx);
+}
+void autoschedservice::sched_table_rm(int row){
+    ui->tableWidget_schedule->removeRow(row);
 }
 
 void autoschedservice::on_listWidget_emps_itemSelectionChanged()
@@ -94,6 +120,9 @@ void autoschedservice::on_listWidget_emps_itemSelectionChanged()
 
     // Set closer check
     ui->chkBox_empCloser->setChecked(empvec.at(index).is_closer());
+
+    // Set priority value
+    ui->spinBox_empPriority->setValue(empvec.at(index).get_priority());
 
     // Set spinbox values for
     ui->spinBox_empDaysMin->setValue(empvec.at(index).get_days_min());
@@ -135,6 +164,10 @@ void autoschedservice::on_btn_empUpdate_clicked()
     bool new_closer = ui->chkBox_empCloser->isChecked();
     empvec.at(index).set_closer(new_closer);
 
+    // Update priority
+    unsigned int new_pri = ui->spinBox_empPriority->value();
+    empvec.at(index).set_priority(new_pri);
+
     // Update days/hours
     int new_days_min = ui->spinBox_empDaysMin->value();
     int new_days_max = ui->spinBox_empDaysMax->value();
@@ -145,12 +178,26 @@ void autoschedservice::on_btn_empUpdate_clicked()
     empvec.at(index).set_hours_min(new_hours_min);
     empvec.at(index).set_hours_max(new_hours_max);
 
+    // Update availability
+    for(size_t d = 0; d < 7; d++){
+        for(size_t s = 0; s < empvec.at(index).get_avail(d).size(); s++){
+            std::string temp_val = ui->tableWidget_avail->item(s+1, d)->text().toStdString();
+            empvec.at(index).set_avail(d, s, time_to_float(temp_val));
+        }
+    }
+
+    // Update the schedule table
+    sched_table_update(index, index+1);
+
+
+
 }
 
 void autoschedservice::on_btn_empAdd_clicked()
 {
-    empvec.push_back(Employee(empvec.size(), "New Employee", "None", false, 0,0,0,0));
+    empvec.push_back(Employee(empvec.size(), "New Employee", "None", false, 0,0,0,0, 0));
     ui->listWidget_emps->addItem(QString::fromStdString(empvec.at(empvec.size()-1).get_name()));
+    sched_table_add();
 }
 
 void autoschedservice::on_btn_empDupe_clicked()
@@ -166,30 +213,30 @@ void autoschedservice::on_btn_empDupe_clicked()
     empvec.push_back(temp);
     // Update ui list
     ui->listWidget_emps->addItem(QString::fromStdString(empvec.at(empvec.size()-1).get_name()));
+    // Update schedule table
+    sched_table_add();
 }
 
 void autoschedservice::on_btn_empRm_clicked()
 {
-//    QListWidgetItem* item = ui->listWidget_emps->currentItem();
-    // Get index of selected employee
-    int index = ui->lbl_empIdVal->text().toInt();
-//    ui->listWidget_emps->removeItemWidget(item);
+    // Prevents total chaos
+    if(empvec.size() > 0){
+    //    QListWidgetItem* item = ui->listWidget_emps->currentItem();
+        // Get index of selected employee
+        int index = ui->lbl_empIdVal->text().toInt();
+    //    ui->listWidget_emps->removeItemWidget(item);
 
-    std::cout << "START UI" << std::endl;
-    ui->listWidget_emps->clear();
+        ui->listWidget_emps->clear();
 
-    // Erase the selected employee
-    empvec.erase(empvec.begin()+index);
+        // Erase the selected employee
+        empvec.erase(empvec.begin()+index);
 
-    std::cout << index << " " << empvec.size() << std::endl;
-    if((unsigned long long)index < empvec.size()){
-        std::cout << "START FOR" << std::endl;
-        for(size_t i = index; i < empvec.size(); i++){
-            empvec.at(i).set_id(i);
+        if((unsigned long long)index < empvec.size()){
+            for(size_t i = index; i < empvec.size(); i++){
+                empvec.at(i).set_id(i);
+            }
         }
-        std::cout << "END FOR" << std::endl;
+        set_emp_list();
+        sched_table_rm(index+1);
     }
-    std::cout << "START SET" << std::endl;
-    set_emp_list();
-    std::cout << "END" << std::endl;
 }

@@ -23,9 +23,11 @@ class Employee
 
 		std::vector<std::vector<float>> avail;
 
+        unsigned int priority;
+
 	public:
 		
-		Employee(unsigned int, std::string, std::string, bool, int, int, int, int);
+        Employee(unsigned int, std::string, std::string, bool, int, int, int, int, unsigned int);
         Employee(const Employee &emp);
         Employee(Employee &&emp);
         ~Employee();
@@ -56,8 +58,12 @@ class Employee
         void set_hours_min(int i);
         void set_hours_max(int i);
 
+        unsigned int get_priority();
+        void set_priority(unsigned int p);
+
 		std::vector<float> get_avail(int day) const;
 		void set_avail(int day, std::vector<float> vec);
+        void set_avail(int day, int shift, float val);
 };
 
 
