@@ -25,6 +25,19 @@ Employee::~Employee(){
     std::cout << "DESTRUCTOR called for " << this->name << std::endl;
 }
 
+Employee& Employee::operator=(Employee &&emp){
+    id = emp.id;
+    name = emp.name;
+    role = emp.role;
+    closer = emp.closer;
+    min_d = emp.min_d;
+    max_d = emp.max_d;
+    min_h = emp.min_h;
+    max_h = emp.max_h;
+    avail = emp.avail;
+    return *this;
+}
+
 std::ostream &operator<<(std::ostream &output, const Employee &Emp){ 
 	output << "  Name : " << Emp.name << "\n"
 		   << "    ID : " << Emp.id << "\n"

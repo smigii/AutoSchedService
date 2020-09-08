@@ -30,6 +30,8 @@ class Employee
         Employee(Employee &&emp);
         ~Employee();
 
+        Employee& operator=(Employee&& emp);
+
 		friend std::ostream &operator<<(std::ostream &output, const Employee &Emp);
 
 		unsigned int get_id() const;

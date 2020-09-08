@@ -13,6 +13,14 @@ using json = nlohmann::json;
 #include "src/public/helpers.hpp"
 #include "src/public/scheduler.hpp"
 
+/*
+TODO:
+
+On Remove Click:
+    CRASH when clicking UPDATE after REMOVING an employee and not selecting a new one, i.e, trying to update a removed employee.
+
+*/
+
 // Create the employee master vector and fill it with employee data
 // from employees.json
 std::vector<Employee> empvec;
@@ -158,4 +166,30 @@ void autoschedservice::on_btn_empDupe_clicked()
     empvec.push_back(temp);
     // Update ui list
     ui->listWidget_emps->addItem(QString::fromStdString(empvec.at(empvec.size()-1).get_name()));
+}
+
+void autoschedservice::on_btn_empRm_clicked()
+{
+//    QListWidgetItem* item = ui->listWidget_emps->currentItem();
+    // Get index of selected employee
+    int index = ui->lbl_empIdVal->text().toInt();
+//    ui->listWidget_emps->removeItemWidget(item);
+
+    std::cout << "START UI" << std::endl;
+    ui->listWidget_emps->clear();
+
+    // Erase the selected employee
+    empvec.erase(empvec.begin()+index);
+
+    std::cout << index << " " << empvec.size() << std::endl;
+    if((unsigned long long)index < empvec.size()){
+        std::cout << "START FOR" << std::endl;
+        for(size_t i = index; i < empvec.size(); i++){
+            empvec.at(i).set_id(i);
+        }
+        std::cout << "END FOR" << std::endl;
+    }
+    std::cout << "START SET" << std::endl;
+    set_emp_list();
+    std::cout << "END" << std::endl;
 }

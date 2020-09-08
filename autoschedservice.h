@@ -26,6 +26,8 @@ private slots:
 
     void on_btn_empDupe_clicked();
 
+    void on_btn_empRm_clicked();
+
 private:
     Ui::autoschedservice *ui;
 };
