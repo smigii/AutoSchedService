@@ -24,7 +24,7 @@ void load_employees(std::vector<Employee>& vec_emps){
     #endif
 
     #ifdef __gnu_linux__
-        std::ifstream ifs("/home/neo/Code/projects/AutoSchedService/src/public/json/employees.json");
+        std::ifstream ifs("../AutoSchedService/src/public/json/employees.json");
     #endif
 
 
@@ -66,7 +66,7 @@ void load_manpower(std::vector<Manpower>& vec_manp){
         std::ifstream ifs("D:\\Code\\projects\\AutoSchedServiceQT\\AutoSchedService\\src\\public\\json\\manpower.json");
     #endif
     #ifdef __gnu_linux__
-        std::ifstream ifs("/home/neo/Code/projects/AutoSchedService/src/public/json/manpower.json");
+        std::ifstream ifs("../AutoSchedService/src/public/json/manpower.json");
     #endif
     json jsong;
 	ifs >> jsong;
