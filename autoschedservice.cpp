@@ -1,6 +1,8 @@
 #include "autoschedservice.h"
 #include "ui_autoschedservice.h"
 
+#include <algorithm>
+
 #include <nlohmann/json.hpp>
 using json = nlohmann::json;
 
@@ -146,51 +148,49 @@ void autoschedservice::on_listWidget_emps_itemSelectionChanged()
 
 void autoschedservice::on_btn_empUpdate_clicked()
 {
-    QListWidgetItem* current_item = ui->listWidget_emps->currentItem();
-    int index = ui->lbl_empIdVal->text().toInt();
+    if(empvec.size() > 0){
+        QListWidgetItem* current_item = ui->listWidget_emps->currentItem();
+        int index = ui->lbl_empIdVal->text().toInt();
 
-    // Update name
-    std::string new_name = ui->lineEdit_empName->text().toStdString();
-    if(new_name != empvec.at(index).get_name()){
-        current_item->setText(QString::fromStdString(new_name));
-        empvec.at(index).set_name(new_name);
-    }
-
-    // Update role
-    std::string new_role = ui->comboBox_empRole->currentText().toStdString();
-    empvec.at(index).set_role(new_role);
-
-    // Update closer
-    bool new_closer = ui->chkBox_empCloser->isChecked();
-    empvec.at(index).set_closer(new_closer);
-
-    // Update priority
-    unsigned int new_pri = ui->spinBox_empPriority->value();
-    empvec.at(index).set_priority(new_pri);
-
-    // Update days/hours
-    int new_days_min = ui->spinBox_empDaysMin->value();
-    int new_days_max = ui->spinBox_empDaysMax->value();
-    int new_hours_min = ui->spinBox_empHoursMin->value();
-    int new_hours_max = ui->spinBox_empHoursMax->value();
-    empvec.at(index).set_days_min(new_days_min);
-    empvec.at(index).set_days_max(new_days_max);
-    empvec.at(index).set_hours_min(new_hours_min);
-    empvec.at(index).set_hours_max(new_hours_max);
-
-    // Update availability
-    for(size_t d = 0; d < 7; d++){
-        for(size_t s = 0; s < empvec.at(index).get_avail(d).size(); s++){
-            std::string temp_val = ui->tableWidget_avail->item(s+1, d)->text().toStdString();
-            empvec.at(index).set_avail(d, s, time_to_float(temp_val));
+        // Update name
+        std::string new_name = ui->lineEdit_empName->text().toStdString();
+        if(new_name != empvec.at(index).get_name()){
+            current_item->setText(QString::fromStdString(new_name));
+            empvec.at(index).set_name(new_name);
         }
+
+        // Update role
+        std::string new_role = ui->comboBox_empRole->currentText().toStdString();
+        empvec.at(index).set_role(new_role);
+
+        // Update closer
+        bool new_closer = ui->chkBox_empCloser->isChecked();
+        empvec.at(index).set_closer(new_closer);
+
+        // Update priority
+        unsigned int new_pri = ui->spinBox_empPriority->value();
+        empvec.at(index).set_priority(new_pri);
+
+        // Update days/hours
+        int new_days_min = ui->spinBox_empDaysMin->value();
+        int new_days_max = ui->spinBox_empDaysMax->value();
+        int new_hours_min = ui->spinBox_empHoursMin->value();
+        int new_hours_max = ui->spinBox_empHoursMax->value();
+        empvec.at(index).set_days_min(new_days_min);
+        empvec.at(index).set_days_max(new_days_max);
+        empvec.at(index).set_hours_min(new_hours_min);
+        empvec.at(index).set_hours_max(new_hours_max);
+
+        // Update availability
+        for(size_t d = 0; d < 7; d++){
+            for(size_t s = 0; s < empvec.at(index).get_avail(d).size(); s++){
+                std::string temp_val = ui->tableWidget_avail->item(s+1, d)->text().toStdString();
+                empvec.at(index).set_avail(d, s, time_to_float(temp_val));
+            }
+        }
+        // Update the schedule table
+        sched_table_update(index, index+1);
     }
-
-    // Update the schedule table
-    sched_table_update(index, index+1);
-
-
-
 }
 
 void autoschedservice::on_btn_empAdd_clicked()
@@ -202,19 +202,22 @@ void autoschedservice::on_btn_empAdd_clicked()
 
 void autoschedservice::on_btn_empDupe_clicked()
 {
-    // Get index of selected employee
-    int index = ui->lbl_empIdVal->text().toInt();
-    // Create temp instance using copy constructor
-    Employee temp = empvec.at(index);
-    // Set temps id
-    temp.set_id(empvec.size());
-    temp.set_name(empvec.at(index).get_name() + " (copy)");
-    // Poosh it
-    empvec.push_back(temp);
-    // Update ui list
-    ui->listWidget_emps->addItem(QString::fromStdString(empvec.at(empvec.size()-1).get_name()));
-    // Update schedule table
-    sched_table_add();
+    // If prevents total anarchy
+    if(empvec.size() > 0){
+        // Get index of selected employee
+        int index = ui->lbl_empIdVal->text().toInt();
+        // Create temp instance using copy constructor
+        Employee temp = empvec.at(index);
+        // Set temps id
+        temp.set_id(empvec.size());
+        temp.set_name(empvec.at(index).get_name() + " (copy)");
+        // Poosh it
+        empvec.push_back(temp);
+        // Update ui list
+        ui->listWidget_emps->addItem(QString::fromStdString(empvec.at(empvec.size()-1).get_name()));
+        // Update schedule table
+        sched_table_add();
+    }
 }
 
 void autoschedservice::on_btn_empRm_clicked()
@@ -238,5 +241,10 @@ void autoschedservice::on_btn_empRm_clicked()
         }
         set_emp_list();
         sched_table_rm(index+1);
+
+        // After removing item, set the item directly above to be selected.
+        // This prevents !CHAOS!
+        int new_idx = std::min(index, (int)empvec.size()-1);
+        ui->listWidget_emps->setCurrentRow(new_idx);
     }
 }
