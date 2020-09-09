@@ -23,6 +23,9 @@ public:
 
     void sched_table_rm(int row);
 
+    void update_sched_table_contents();
+    void clear_sched_table_contents();
+
 private slots:
     void on_listWidget_emps_itemSelectionChanged();
 
@@ -38,7 +41,9 @@ private slots:
 
     void on_btn_empMoveDown_clicked();
 
-    void on_pushButton_clicked();
+    void on_btn_schedCreate_clicked();
+
+    void on_btn_schedClear_clicked();
 
 private:
     Ui::autoschedservice *ui;

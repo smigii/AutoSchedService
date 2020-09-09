@@ -68,6 +68,9 @@ autoschedservice::autoschedservice(QWidget *parent)
         }
     }
 
+    // Should be done on startup, and whenever any changes are made to employees
+    schedule.setup(empvec, manpvec);
+
     sched_table_update(0, empvec.size());
 }
 
@@ -148,6 +151,9 @@ void autoschedservice::on_listWidget_emps_itemSelectionChanged()
 void autoschedservice::on_btn_empUpdate_clicked()
 {
     if(empvec.size() > 0){
+        // Clear the schedule object
+        clear_sched_table_contents();
+
         QListWidgetItem* current_item = ui->listWidget_emps->currentItem();
         int index = ui->lbl_empIdVal->text().toInt();
 
@@ -194,7 +200,19 @@ void autoschedservice::on_btn_empUpdate_clicked()
 
 void autoschedservice::on_btn_empAdd_clicked()
 {
+    // Clear the schedule object
+    clear_sched_table_contents();
+
     empvec.push_back(Employee(empvec.size(), "New Employee", "None", false, 0,0,0,0, 0));
+
+    for(int d = 0; d < 7; d++){
+        std::vector<float> temp;
+        for(int s = 0; s < manpvec.at(0).get_num_shifts(d)*2; s++){
+            temp.push_back(-1);
+        }
+        empvec.at(empvec.size()-1).set_avail(d, temp);
+    }
+
     ui->listWidget_emps->addItem(QString::fromStdString(empvec.at(empvec.size()-1).get_name()));
     sched_table_add();
 }
@@ -203,6 +221,9 @@ void autoschedservice::on_btn_empDupe_clicked()
 {
     // If prevents total anarchy
     if(empvec.size() > 0){
+        // Clear the schedule object
+        clear_sched_table_contents();
+
         // Get index of selected employee
         int index = ui->lbl_empIdVal->text().toInt();
         // Create temp instance using copy constructor
@@ -223,21 +244,24 @@ void autoschedservice::on_btn_empRm_clicked()
 {
     // Prevents total chaos
     if(empvec.size() > 0){
-    //    QListWidgetItem* item = ui->listWidget_emps->currentItem();
+        // Clear the schedule object
+        clear_sched_table_contents();
+
         // Get index of selected employee
         int index = ui->lbl_empIdVal->text().toInt();
-    //    ui->listWidget_emps->removeItemWidget(item);
 
         ui->listWidget_emps->clear();
 
         // Erase the selected employee
         empvec.erase(empvec.begin()+index);
 
+        // Reset all the ids for employees after the one removed
         if((unsigned long long)index < empvec.size()){
             for(size_t i = index; i < empvec.size(); i++){
                 empvec.at(i).set_id(i);
             }
         }
+        // Then reset the employee list widget and the schedule table
         set_emp_list();
         sched_table_rm(index+1);
 
@@ -245,6 +269,7 @@ void autoschedservice::on_btn_empRm_clicked()
         // This prevents !CHAOS!
         int new_idx = std::min(index, (int)empvec.size()-1);
         ui->listWidget_emps->setCurrentRow(new_idx);
+
     }
 }
 
@@ -265,6 +290,10 @@ void autoschedservice::on_btn_empMoveUp_clicked()
 
         // Keeps the moved employee selected
         ui->listWidget_emps->setCurrentRow(index-1);
+
+        // Update the schedule object
+        schedule.swap_empw(index, index-1);
+        update_sched_table_contents();
     }
 }
 
@@ -285,15 +314,41 @@ void autoschedservice::on_btn_empMoveDown_clicked()
 
         // Keeps the moved employee selected
         ui->listWidget_emps->setCurrentRow(index+1);
+
+        // Update the schedule object
+        schedule.swap_empw(index, index+1);
+        update_sched_table_contents();
     }
 }
 
-void autoschedservice::on_pushButton_clicked()
-{
-    create_schedule(empvec, manpvec, schedule);
+void autoschedservice::update_sched_table_contents(){
     for(size_t d = 0; d < 7; d++){
         for(size_t e = 0; e < schedule.get_empwvec_size(); e++){
             ui->tableWidget_schedule->item(e+1, d+1)->setText(QString::fromStdString(schedule.get_emp_shift(e, d)));
         }
     }
+}
+void autoschedservice::clear_sched_table_contents(){
+    for(size_t d = 0; d < 7; d++){
+        for(size_t e = 0; e < schedule.get_empwvec_size(); e++){
+            ui->tableWidget_schedule->item(e+1, d+1)->setText(QString::fromStdString(""));
+        }
+    }
+    schedule.clear();
+}
+void autoschedservice::on_btn_schedCreate_clicked()
+{
+    if(schedule.get_empwvec_size() == 0){
+        schedule.setup(empvec, manpvec);
+    }
+    schedule.set_closers();
+    schedule.create(manpvec);
+
+    update_sched_table_contents();
+
+}
+
+void autoschedservice::on_btn_schedClear_clicked()
+{
+    clear_sched_table_contents();
 }

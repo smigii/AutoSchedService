@@ -100,26 +100,24 @@ void Schedule::set_closers(){
 			// Then, check if the employee has exceeded their max number of
 			// days worked.
 			if(vec_empsort.at(i).empwptr->daycnt < vec_empsort.at(i).empwptr->empptr->get_days_max()){
-				// if(vec_shiftcnt.at(day).at(shift) < vec_manp.at(0).get_shift_val(day,shift) ){
-					// Next, check if the day has already been added for the employee.
-					// This check prevents the program from overwriting already 
-					// assigned days with lower priority shifts.
-					if(vec_empsort.at(i).empwptr->vec_assigned_days.at(day) == false){
-						// Name of employee
-						std::string name = vec_empsort.at(i).empwptr->empptr->get_name();
-						// Which shift is being assigned
-						int shift_num = vec_empsort.at(i).shift;
-						// Converting numeric calue to pretty string
-                        std::string start = float_to_time(vec_empsort.at(i).empwptr->empptr->get_avail(day).at(2*shift_num));
-                        std::string end = float_to_time(vec_empsort.at(i).empwptr->empptr->get_avail(day).at(2*shift_num+1));
-						std::string shift_string = start + "-" + end;
-						// Setting the day and incrementing necessary values
-						vec_empsort.at(i).inc_daycnt();
-						vec_empsort.at(i).empwptr->vec_assigned_days.at(day) = true;
-						vec_empsort.at(i).empwptr->vec_shifts.at(day) = shift_string;
-						vec_shiftcnt.at(day).at(shift)++;
-					}
-				// }
+                // Next, check if the day has already been added for the employee.
+                // This check prevents the program from overwriting already
+                // assigned days with lower priority shifts.
+                if(vec_empsort.at(i).empwptr->vec_assigned_days.at(day) == false){
+                    // Name of employee
+                    std::string name = vec_empsort.at(i).empwptr->empptr->get_name();
+                    // Which shift is being assigned
+                    int shift_num = vec_empsort.at(i).shift;
+                    // Converting numeric calue to pretty string
+                    std::string start = float_to_time(vec_empsort.at(i).empwptr->empptr->get_avail(day).at(2*shift_num));
+                    std::string end = float_to_time(vec_empsort.at(i).empwptr->empptr->get_avail(day).at(2*shift_num+1));
+                    std::string shift_string = start + "-" + end;
+                    // Setting the day and incrementing necessary values
+                    vec_empsort.at(i).inc_daycnt();
+                    vec_empsort.at(i).empwptr->vec_assigned_days.at(day) = true;
+                    vec_empsort.at(i).empwptr->vec_shifts.at(day) = shift_string;
+                    vec_shiftcnt.at(day).at(shift)++;
+                }
 			}	
 		}
 	}
@@ -219,6 +217,10 @@ void Schedule::print_schedule(){
 		std::cout << "\n";
 	}
 	std::cout << "\n";
+}
+
+void Schedule::swap_empw(int idxa, int idxb){
+    std::swap(vec_empwrappers.at(idxa), vec_empwrappers.at(idxb));
 }
 
 size_t Schedule::get_empwvec_size(){
