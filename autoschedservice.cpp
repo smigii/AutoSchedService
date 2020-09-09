@@ -17,7 +17,7 @@
 /*
 TODO:
     Need to add some string validation to time_to_float()
-    Remove button doesnt always update Schedule table properly, sometimes it doesn't feel like doing its job :/
+    CRASH : Add employee -> Duplicate added employee -> Create schedule -> crash
 
 */
 
@@ -151,8 +151,6 @@ void autoschedservice::on_listWidget_emps_itemSelectionChanged()
 void autoschedservice::on_btn_empUpdate_clicked()
 {
     if(empvec.size() > 0){
-        // Clear the schedule object
-        clear_sched_table_contents();
 
         QListWidgetItem* current_item = ui->listWidget_emps->currentItem();
         int index = ui->lbl_empIdVal->text().toInt();
@@ -193,6 +191,8 @@ void autoschedservice::on_btn_empUpdate_clicked()
                 empvec.at(index).set_avail(d, s, time_to_float(temp_val));
             }
         }
+        // Clear the schedule object
+        clear_sched_table_contents();
         // Update the schedule table
         sched_table_update(index, index+1);
     }
@@ -200,9 +200,6 @@ void autoschedservice::on_btn_empUpdate_clicked()
 
 void autoschedservice::on_btn_empAdd_clicked()
 {
-    // Clear the schedule object
-    clear_sched_table_contents();
-
     empvec.push_back(Employee(empvec.size(), "New Employee", "None", false, 0,0,0,0, 0));
 
     for(int d = 0; d < 7; d++){
@@ -215,14 +212,15 @@ void autoschedservice::on_btn_empAdd_clicked()
 
     ui->listWidget_emps->addItem(QString::fromStdString(empvec.at(empvec.size()-1).get_name()));
     sched_table_add();
+
+    // Clear the schedule object
+    clear_sched_table_contents();
 }
 
 void autoschedservice::on_btn_empDupe_clicked()
 {
     // If prevents total anarchy
     if(empvec.size() > 0){
-        // Clear the schedule object
-        clear_sched_table_contents();
 
         // Get index of selected employee
         int index = ui->lbl_empIdVal->text().toInt();
@@ -235,8 +233,10 @@ void autoschedservice::on_btn_empDupe_clicked()
         empvec.push_back(temp);
         // Update ui list
         ui->listWidget_emps->addItem(QString::fromStdString(empvec.at(empvec.size()-1).get_name()));
-        // Update schedule table
+        // Add to the schedule table
         sched_table_add();
+        // Clear the schedule object
+        clear_sched_table_contents();
     }
 }
 
@@ -244,8 +244,6 @@ void autoschedservice::on_btn_empRm_clicked()
 {
     // Prevents total chaos
     if(empvec.size() > 0){
-        // Clear the schedule object
-        clear_sched_table_contents();
 
         // Get index of selected employee
         int index = ui->lbl_empIdVal->text().toInt();
@@ -270,6 +268,8 @@ void autoschedservice::on_btn_empRm_clicked()
         int new_idx = std::min(index, (int)empvec.size()-1);
         ui->listWidget_emps->setCurrentRow(new_idx);
 
+        // Clear the schedule object
+        clear_sched_table_contents();
     }
 }
 
@@ -330,11 +330,12 @@ void autoschedservice::update_sched_table_contents(){
 }
 void autoschedservice::clear_sched_table_contents(){
     for(size_t d = 0; d < 7; d++){
-        for(size_t e = 0; e < schedule.get_empwvec_size(); e++){
+        for(size_t e = 0; e < (size_t)ui->tableWidget_schedule->rowCount()-1; e++){
             ui->tableWidget_schedule->item(e+1, d+1)->setText(QString::fromStdString(""));
         }
     }
     schedule.clear();
+    schedule.setup(empvec, manpvec);
 }
 void autoschedservice::on_btn_schedCreate_clicked()
 {
@@ -345,10 +346,55 @@ void autoschedservice::on_btn_schedCreate_clicked()
     schedule.create(manpvec);
 
     update_sched_table_contents();
-
 }
 
 void autoschedservice::on_btn_schedClear_clicked()
 {
     clear_sched_table_contents();
+}
+
+void autoschedservice::on_tableWidget_schedule_itemSelectionChanged()
+{
+    // First clear the combobox
+    ui->comboBox_schedAssign->clear();
+    // Check to make sure there is a schedule that exists
+    if(schedule.get_empwvec_size() > 0){
+        int col = ui->tableWidget_schedule->currentColumn();
+        int row = ui->tableWidget_schedule->currentRow();
+        // Make sure a valid cell is being selected
+        if(col > 0 && row > 0){
+            ui->comboBox_schedAssign->addItem("Select Shift...");
+            // Add the employees shifts to the combo box
+            for(size_t s = 0; s < schedule.get_employee(row-1)->get_avail(col-1).size(); s+=2){
+                float start_f = schedule.get_employee(row-1)->get_avail(col-1).at(s);
+                if(start_f == -1){
+                    ui->comboBox_schedAssign->addItem("N/A");
+                    continue;
+                }
+                float end_f = schedule.get_employee(row-1)->get_avail(col-1).at(s + 1);
+
+                std::string start_s = float_to_time(start_f);
+                std::string end_s = float_to_time(end_f);
+
+                ui->comboBox_schedAssign->addItem(QString::fromStdString(start_s + "-" + end_s));
+            }
+            ui->comboBox_schedAssign->addItem("OFF");
+        }
+    }
+}
+
+void autoschedservice::on_btn_schedAssign_clicked()
+{
+    int shift = ui->comboBox_schedAssign->currentIndex() - 1;
+
+    int row = ui->tableWidget_schedule->currentRow();
+    int col = ui->tableWidget_schedule->currentColumn();
+
+    if(shift >= 0){
+        std::string shift_str = ui->comboBox_schedAssign->currentText().toStdString();
+        if(shift_str != "N/A"){
+            schedule.set_emp(row-1, col-1, shift, shift_str);
+            update_sched_table_contents();
+        }
+    }
 }

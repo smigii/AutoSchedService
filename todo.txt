@@ -1,6 +1,8 @@
 TODO
 
-Create UI for Scheduling, should be able to create, view and clear
+*DONE Create UI for Scheduling, should be able to create, view and clear
+
+*DONE Connect the assign button and combobox for the sched table.
 
 Create UI for manpower, should be able to create, view and edit
 

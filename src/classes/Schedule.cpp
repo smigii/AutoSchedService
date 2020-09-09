@@ -9,6 +9,22 @@ Schedule::Schedule()
 	
 }
 
+const Employee* Schedule::get_employee(int e){
+    return vec_empwrappers.at(e).empptr;
+}
+Empwrapper* Schedule::get_empwrapper(int e){
+    return &vec_empwrappers.at(e);
+}
+void Schedule::set_emp(int e, int d, int s, std::string shift){
+    if(shift != "OFF"){
+        vec_empwrappers.at(e).daycnt++;
+        vec_shiftcnt.at(d).at(s)++;
+    }
+
+    vec_empwrappers.at(e).vec_assigned_days.at(d) = true;
+    vec_empwrappers.at(e).vec_shifts.at(d) = shift;
+}
+
 void Schedule::clear(){
 	vec_empwrappers.clear();
 	vec_empsort.clear();
@@ -143,7 +159,7 @@ void Schedule::create(const std::vector<Manpower>& vec_manp){
 					std::string name = vec_empsort.at(i).empwptr->empptr->get_name();
 					// Which shift is being assigned
 					int shift_num = vec_empsort.at(i).shift;
-					// Converting numeric calue to pretty string
+                    // Converting numeric value to pretty string
                     std::string start = float_to_time(vec_empsort.at(i).empwptr->empptr->get_avail(day).at(2*shift_num));
                     std::string end = float_to_time(vec_empsort.at(i).empwptr->empptr->get_avail(day).at(2*shift_num+1));
 					std::string shift_string = start + "-" + end;
@@ -217,6 +233,14 @@ void Schedule::print_schedule(){
 		std::cout << "\n";
 	}
 	std::cout << "\n";
+}
+void Schedule::print_shiftcnt(){
+    for(size_t i = 0; i < vec_shiftcnt.size(); i++){
+        for(size_t j = 0; j < vec_shiftcnt.at(i).size(); j++){
+            std::cout << vec_shiftcnt.at(i).at(j) << " ";
+        }
+        std::cout << std::endl;
+    }
 }
 
 void Schedule::swap_empw(int idxa, int idxb){

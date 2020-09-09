@@ -45,6 +45,10 @@ private slots:
 
     void on_btn_schedClear_clicked();
 
+    void on_tableWidget_schedule_itemSelectionChanged();
+
+    void on_btn_schedAssign_clicked();
+
 private:
     Ui::autoschedservice *ui;
 };
