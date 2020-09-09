@@ -1,11 +1,8 @@
 #include "Schedule.hpp"
 
-std::string float_to_time2(float num){
-	int hr = (int)num;
-	int min = (int)((num-hr)*60);
+#include <algorithm>
 
-	return(std::to_string(hr) + ":" + std::to_string(min));
-}
+#include "src/public/time_conv.hpp"
 
 Schedule::Schedule()
 {
@@ -95,7 +92,7 @@ void Schedule::set_closers(){
 	for(int i = vec_empsort.size()-1; i >= 0; i--){
 		// Convenient temp var for holding the day in question
 		int day = vec_empsort.at(i).day;
-		int shift = vec_empsort.at(i).shift;
+        int shift = vec_empsort.at(i).shift;
 		// First, check if the employee is a closer and if anyone has been assigned that shift yet.
 		// Since this is being called first, none of the shifts should have anyone assigned yet, so
 		// this will work (i hope)
@@ -113,8 +110,8 @@ void Schedule::set_closers(){
 						// Which shift is being assigned
 						int shift_num = vec_empsort.at(i).shift;
 						// Converting numeric calue to pretty string
-						std::string start = float_to_time2(vec_empsort.at(i).empwptr->empptr->get_avail(day).at(2*shift_num));
-						std::string end = float_to_time2(vec_empsort.at(i).empwptr->empptr->get_avail(day).at(2*shift_num+1));
+                        std::string start = float_to_time(vec_empsort.at(i).empwptr->empptr->get_avail(day).at(2*shift_num));
+                        std::string end = float_to_time(vec_empsort.at(i).empwptr->empptr->get_avail(day).at(2*shift_num+1));
 						std::string shift_string = start + "-" + end;
 						// Setting the day and incrementing necessary values
 						vec_empsort.at(i).inc_daycnt();
@@ -149,8 +146,8 @@ void Schedule::create(const std::vector<Manpower>& vec_manp){
 					// Which shift is being assigned
 					int shift_num = vec_empsort.at(i).shift;
 					// Converting numeric calue to pretty string
-					std::string start = float_to_time2(vec_empsort.at(i).empwptr->empptr->get_avail(day).at(2*shift_num));
-					std::string end = float_to_time2(vec_empsort.at(i).empwptr->empptr->get_avail(day).at(2*shift_num+1));
+                    std::string start = float_to_time(vec_empsort.at(i).empwptr->empptr->get_avail(day).at(2*shift_num));
+                    std::string end = float_to_time(vec_empsort.at(i).empwptr->empptr->get_avail(day).at(2*shift_num+1));
 					std::string shift_string = start + "-" + end;
 					// Setting the day and incrementing necessary values
 					vec_empsort.at(i).inc_daycnt();
@@ -222,4 +219,12 @@ void Schedule::print_schedule(){
 		std::cout << "\n";
 	}
 	std::cout << "\n";
+}
+
+size_t Schedule::get_empwvec_size(){
+    return vec_empwrappers.size();
+}
+
+std::string Schedule::get_emp_shift(size_t e, size_t d){
+    return vec_empwrappers.at(e).vec_shifts.at(d);
 }

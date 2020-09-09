@@ -1,7 +1,6 @@
 #ifndef __EMPLOYEE__
 #define __EMPLOYEE__
 
-#include <iostream>
 #include <string>
 #include <vector>
 

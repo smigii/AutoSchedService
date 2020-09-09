@@ -1,5 +1,7 @@
 #include "Employee.hpp"
 
+#include <iostream>
+
 Employee::Employee(unsigned int id, std::string name, std::string role, bool closer, int max_h, int min_h, int max_d, int min_d, unsigned int pri)
     : id{id}, name{name}, role{role}, closer{closer}, max_h{max_h}, min_h{min_h}, max_d{max_d}, min_d{min_d}, priority{pri}
 {

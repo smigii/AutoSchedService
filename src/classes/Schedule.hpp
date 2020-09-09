@@ -32,6 +32,10 @@ class Schedule
 		void print_spls();
 		void print_empspls();
 		void print_schedule();
+
+        size_t get_empwvec_size();
+
+        std::string get_emp_shift(size_t e, size_t d);
 };
 
 #endif

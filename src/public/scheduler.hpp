@@ -1,14 +1,8 @@
-#include <numeric>								// Used for std::accumulate()
-#include <algorithm>							// Used for std::sort()
-
-#include <iostream>
-#include <iomanip>
-#include <string>
-#include <vector>
+#ifndef __SCHEDULER__
+#define __SCHEDULER__
 
 #include "src/classes/Employee.hpp"
 #include "src/classes/Manpower.hpp"
-#include "src/classes/EmpWrapper.hpp"
 #include "src/classes/Schedule.hpp"
 
 /* 
@@ -65,3 +59,5 @@ void create_schedule(const std::vector<Employee>& vec_emps,
 	schedule.set_closers();
 	schedule.create(vec_manp);
 }
+
+#endif

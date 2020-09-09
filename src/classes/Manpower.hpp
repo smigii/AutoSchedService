@@ -1,7 +1,7 @@
 #ifndef __MANPOWER__
 #define __MANPOWER__
 
-#include <iostream>
+//#include <iostream>
 #include <string>
 #include <vector>
 

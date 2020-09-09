@@ -38,6 +38,8 @@ private slots:
 
     void on_btn_empMoveDown_clicked();
 
+    void on_pushButton_clicked();
+
 private:
     Ui::autoschedservice *ui;
 };

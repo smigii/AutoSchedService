@@ -1,5 +1,7 @@
 #include "Manpower.hpp"
 
+#include <iostream>
+
 Manpower::Manpower(std::string role)
 : role{role}
 {

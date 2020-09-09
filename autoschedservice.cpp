@@ -1,19 +1,18 @@
 #include "autoschedservice.h"
 #include "ui_autoschedservice.h"
 
-#include <algorithm>
+#include <algorithm>                    // Needed for std::min
 
-#include <nlohmann/json.hpp>
-using json = nlohmann::json;
+#include "src/public/time_conv.hpp"
 
 #include "src/classes/Employee.hpp"
 #include "src/classes/Manpower.hpp"
-#include "src/classes/EmpWrapper.hpp"
 #include "src/classes/Schedule.hpp"
 
 #include "src/public/load_json.hpp"
 #include "src/public/helpers.hpp"
 #include "src/public/scheduler.hpp"
+
 
 /*
 TODO:
@@ -286,5 +285,15 @@ void autoschedservice::on_btn_empMoveDown_clicked()
 
         // Keeps the moved employee selected
         ui->listWidget_emps->setCurrentRow(index+1);
+    }
+}
+
+void autoschedservice::on_pushButton_clicked()
+{
+    create_schedule(empvec, manpvec, schedule);
+    for(size_t d = 0; d < 7; d++){
+        for(size_t e = 0; e < schedule.get_empwvec_size(); e++){
+            ui->tableWidget_schedule->item(e+1, d+1)->setText(QString::fromStdString(schedule.get_emp_shift(e, d)));
+        }
     }
 }

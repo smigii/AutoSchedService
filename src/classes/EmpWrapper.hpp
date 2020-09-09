@@ -1,14 +1,7 @@
 #ifndef __EMPWRAPPER__
 #define __EMPWRAPPER__
 
-#include <iostream>
-#include <string>
 #include <vector>
-#include <iomanip>
-#include <utility>
-
-#include <numeric>								// Used for std::accumulate()
-#include <algorithm>							// Used for std::sort()
 
 #include "Employee.hpp"
 

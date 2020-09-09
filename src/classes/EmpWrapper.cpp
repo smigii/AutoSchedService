@@ -1,5 +1,14 @@
 #include "EmpWrapper.hpp"
 
+#include <iostream>
+#include <string>
+#include <vector>
+#include <iomanip>
+#include <utility>
+
+#include <numeric>								// Used for std::accumulate()
+#include <algorithm>							// Used for std::sort()
+
 Empwrapper::Empwrapper(const Employee* empptr)
 	: empptr{empptr}, daycnt{0}, hrcnt{0}
 	{

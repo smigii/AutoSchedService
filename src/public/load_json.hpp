@@ -1,14 +1,17 @@
+#ifndef __LD_JSON__
+#define __LD_JSON__
+
 #include <fstream>
 
 #include <iostream>
-#include <iomanip>
+//#include <iomanip>
 #include <string>
 #include <vector>
 
 #include "src/classes/Employee.hpp"
 #include "src/classes/Manpower.hpp"
-#include "src/classes/EmpWrapper.hpp"
-#include "src/classes/Schedule.hpp"
+//#include "src/classes/EmpWrapper.hpp"
+//#include "src/classes/Schedule.hpp"
 
 #include <nlohmann/json.hpp>
 using json = nlohmann::json;
@@ -83,3 +86,5 @@ void load_manpower(std::vector<Manpower>& vec_manp){
 		vec_manp.push_back(temp);
 	}
 }
+
+#endif

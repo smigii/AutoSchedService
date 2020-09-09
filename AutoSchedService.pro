@@ -14,6 +14,7 @@ INCLUDEPATH += include/nlohmann_json/
 SOURCES += \
     main.cpp \
     autoschedservice.cpp \
+    src/public/time_conv.cpp \
     src/classes/Employee.cpp \
     src/classes/EmpWrapper.cpp \
     src/classes/Schedule.cpp \
@@ -22,6 +23,7 @@ SOURCES += \
 HEADERS += \
     autoschedservice.h \
     src/public/helpers.hpp \
+    src/public/time_conv.hpp \
     src/public/load_json.hpp \
     src/public/scheduler.hpp \
     src/classes/Employee.hpp \
