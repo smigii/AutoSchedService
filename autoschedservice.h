@@ -34,6 +34,10 @@ private slots:
 
     void on_btn_empRm_clicked();
 
+    void on_btn_empMoveUp_clicked();
+
+    void on_btn_empMoveDown_clicked();
+
 private:
     Ui::autoschedservice *ui;
 };

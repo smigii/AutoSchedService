@@ -248,3 +248,43 @@ void autoschedservice::on_btn_empRm_clicked()
         ui->listWidget_emps->setCurrentRow(new_idx);
     }
 }
+
+void autoschedservice::on_btn_empMoveUp_clicked()
+{
+    int index = ui->lbl_empIdVal->text().toInt();
+    if(index > 0){
+        std::cout << "\nMOVE UP" << std::endl;
+        empvec.at(index).set_id(index-1);
+        empvec.at(index-1).set_id(index);
+
+        std::swap(empvec.at(index), empvec.at(index-1));
+
+        ui->listWidget_emps->item(index-1)->setText(QString::fromStdString(empvec.at(index-1).get_name()));
+        ui->listWidget_emps->item(index)->setText(QString::fromStdString(empvec.at(index).get_name()));
+
+        sched_table_update( (index-1), (index-1)+2 );
+
+        // Keeps the moved employee selected
+        ui->listWidget_emps->setCurrentRow(index-1);
+    }
+}
+
+void autoschedservice::on_btn_empMoveDown_clicked()
+{
+    int index = ui->lbl_empIdVal->text().toInt();
+    if(index < (int)empvec.size()-1){
+        std::cout << "\nMOVE DN" << std::endl;
+        empvec.at(index).set_id(index+1);
+        empvec.at(index+1).set_id(index);
+
+        std::swap(empvec.at(index), empvec.at(index+1));
+
+        ui->listWidget_emps->item(index+1)->setText(QString::fromStdString(empvec.at(index+1).get_name()));
+        ui->listWidget_emps->item(index)->setText(QString::fromStdString(empvec.at(index).get_name()));
+
+        sched_table_update( (index), (index)+2 );
+
+        // Keeps the moved employee selected
+        ui->listWidget_emps->setCurrentRow(index+1);
+    }
+}
