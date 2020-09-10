@@ -16,6 +16,7 @@ public:
     ~autoschedservice();
 
     void set_emp_list();
+    void set_manp_list();
 
     void sched_table_update(int start, int end);
 
@@ -48,6 +49,8 @@ private slots:
     void on_tableWidget_schedule_itemSelectionChanged();
 
     void on_btn_schedAssign_clicked();
+
+    void on_comboBox_shiftSelect_currentIndexChanged(int index);
 
 private:
     Ui::autoschedservice *ui;

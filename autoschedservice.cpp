@@ -17,7 +17,6 @@
 /*
 TODO:
     Need to add some string validation to time_to_float()
-    CRASH : Add employee -> Duplicate added employee -> Create schedule -> crash
 
 */
 
@@ -47,6 +46,10 @@ autoschedservice::autoschedservice(QWidget *parent)
     ui->tableWidget_avail->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     ui->tableWidget_avail->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 
+    // Shift table setup
+    ui->tableWidget_shifts->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->tableWidget_shifts->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+
     // Schedule table setup
     ui->tableWidget_schedule->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     ui->tableWidget_schedule->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
@@ -56,6 +59,14 @@ autoschedservice::autoschedservice(QWidget *parent)
         for(size_t s = 1; s < 5; s++){
             QTableWidgetItem* pCell = new QTableWidgetItem;
             ui->tableWidget_avail->setItem(s, d, pCell);
+        }
+    }
+
+    // Lets us easily make changes to shifts table
+    for(size_t d = 0; d < 7; d++){
+        for(size_t e =1; e < manpvec.size()+1; e++){
+            QTableWidgetItem* pCell = new QTableWidgetItem;
+            ui->tableWidget_shifts->setItem(e, d, pCell);
         }
     }
 
@@ -72,6 +83,7 @@ autoschedservice::autoschedservice(QWidget *parent)
     schedule.setup(empvec, manpvec);
 
     sched_table_update(0, empvec.size());
+    set_manp_list();
 }
 
 autoschedservice::~autoschedservice()
@@ -84,6 +96,12 @@ void autoschedservice::set_emp_list(){
         ui->listWidget_emps->addItem(QString::fromStdString(empvec.at(i).get_name()));
     }
 }
+void autoschedservice::set_manp_list(){
+    for(size_t i = 0; i < manpvec.size(); i++){
+        ui->comboBox_shiftSelect->addItem(QString::fromStdString(manpvec.at(i).get_role()));
+    }
+}
+
 void autoschedservice::sched_table_update(int start, int end){
     for(int i = start; i < end; i++){
         ui->tableWidget_schedule->item(i+1, 0)->setText(QString::fromStdString(empvec.at(i).get_name()));
@@ -395,6 +413,16 @@ void autoschedservice::on_btn_schedAssign_clicked()
         if(shift_str != "N/A"){
             schedule.set_emp(row-1, col-1, shift, shift_str);
             update_sched_table_contents();
+        }
+    }
+}
+
+void autoschedservice::on_comboBox_shiftSelect_currentIndexChanged(int index)
+{
+    for(size_t d = 0; d < 7; d++){
+        for(size_t s = 0; s < (size_t)manpvec.at(index).get_num_shifts(d); s++){
+            ui->tableWidget_shifts->item(s+1, d)->setText(QString::number(manpvec.at(index).get_shift_val(d, s)));
+//            ui->tableWidget_shifts->item(s+1, d)->setText("TEST");
         }
     }
 }

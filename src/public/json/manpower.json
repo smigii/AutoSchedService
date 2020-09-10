@@ -1,6 +1,6 @@
 [
 	{
-		"role": "sales",
+		"role": "Sales",
 
 		"mon": [2, 2],
 		"tue": [2, 2],
@@ -8,10 +8,10 @@
 		"thu": [2, 2],
 		"fri": [2, 2],
 		"sat": [3],
-		"sun": [3]
+		"sun": [0]
 	},
 	{
-		"role": "tech",
+		"role": "Tech",
 		
 		"mon": [2, 2],
 		"tue": [2, 1],
