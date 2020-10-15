@@ -9,6 +9,10 @@ Schedule::Schedule()
 	
 }
 
+// d = day
+// s = shift
+// r = role
+
 const Employee* Schedule::get_employee(int e){
     return vec_empwrappers.at(e).empptr;
 }
@@ -16,9 +20,10 @@ Empwrapper* Schedule::get_empwrapper(int e){
     return &vec_empwrappers.at(e);
 }
 void Schedule::set_emp(int e, int d, int s, std::string shift){
+    int r = vec_empwrappers.at(e).empptr->get_role_idx();
     if(shift != "OFF"){
         vec_empwrappers.at(e).daycnt++;
-        vec_shiftcnt.at(d).at(s)++;
+        vec_shiftcnt.at(r).at(d).at(s)++;
     }
 
     vec_empwrappers.at(e).vec_assigned_days.at(d) = true;
@@ -44,39 +49,51 @@ void Schedule::setup(const std::vector<Employee>& vec_emps, const std::vector<Ma
 	// Get a tally of how many employees are available for each shift
 	// of the week.
 
-	// Cycle through all days
-	for(size_t d = 0; d < 7; d++){
-		vec_spl.push_back(std::vector<float>());
-		vec_shiftcnt.push_back(std::vector<int>());
+    // Cycle through all roles
+    // HARDCODE : 2
+    for(size_t r = 0; r < 2; r++){
+        vec_spl.push_back(std::vector<std::vector<float>>());
+        vec_shiftcnt.push_back(std::vector<std::vector<int>>());
 
-		// Cycle through each shift of given day
-		for(size_t s = 0; s < (size_t)vec_manp.at(0).get_num_shifts(d); s++){
-			vec_spl.at(d).push_back(0);
-			vec_shiftcnt.at(d).push_back(0);
+        // Cycle through all days
+        for(size_t d = 0; d < 7; d++){
+            vec_spl.at(r).push_back(std::vector<float>());
+            vec_shiftcnt.at(r).push_back(std::vector<int>());
 
-			// Cycle through all employees and get the 
-			// availability of the given shift.
-			for(size_t e = 0; e < vec_empwrappers.size(); e++){
-				vec_spl.at(d).at(s) += vec_empwrappers.at(e).vec_avail.at(d).at(s);
-			}
-		}
-	}
+            // Cycle through each shift of given day
+            for(size_t s = 0; s < (size_t)vec_manp.at(0).get_num_shifts(d); s++){
+                vec_spl.at(r).at(d).push_back(0);
+                vec_shiftcnt.at(r).at(d).push_back(0);
+
+                // Cycle through all employees and get the
+                // availability of the given shift.
+                for(size_t e = 0; e < vec_empwrappers.size(); e++){
+                    if((size_t)vec_empwrappers.at(e).empptr->get_role_idx() == r)
+                        vec_spl.at(r).at(d).at(s) += vec_empwrappers.at(e).vec_avail.at(d).at(s);
+                }
+            }
+        }
+    }
 
 	// Next, use the info obtained above to calculate the SPL of each shift.
-	// For each day...
-	for(size_t d = 0; d < vec_spl.size(); d++){
-		// For each shift...
-		for(size_t s = 0; s < vec_spl.at(d).size(); s++){
-			// Calculate the SPL using formula described in initial comment.
-			float emp_avail = vec_spl.at(d).at(s);
-            float emp_needed = vec_manp.at(0).get_shift_min(d,s);
-			if(emp_avail != emp_needed){
-				vec_spl.at(d).at(s) = (emp_avail / (emp_avail - emp_needed));
-			} else {
-				vec_spl.at(d).at(s) = vec_emps.size()+1;
-			}
-		}
-	}
+    // For each Role...
+    // HARDCODE : 2
+    for(size_t r = 0; r < 2; r++){
+        // For each day...
+        for(size_t d = 0; d < vec_spl.at(r).size(); d++){
+            // For each shift...
+            for(size_t s = 0; s < vec_spl.at(r).at(d).size(); s++){
+                // Calculate the SPL using formula described in initial comment.
+                float emp_avail = vec_spl.at(r).at(d).at(s);
+                float emp_needed = vec_manp.at(r).get_shift_min(d,s);
+                if(emp_avail != emp_needed){
+                    vec_spl.at(r).at(d).at(s) = (emp_avail / (emp_avail - emp_needed));
+                } else {
+                    vec_spl.at(r).at(d).at(s) = vec_emps.size()+1;
+                }
+            }
+        }
+    }
 
 	// Set EmpSPLs
 
@@ -112,7 +129,8 @@ void Schedule::set_closers(){
 		// First, check if the employee is a closer and if anyone has been assigned that shift yet.
 		// Since this is being called first, none of the shifts should have anyone assigned yet, so
 		// this will work (i hope)
-		if(vec_empsort.at(i).empwptr->empptr->is_closer() && vec_shiftcnt.at(day).at(shift) == 0){
+        int role_idx = vec_empsort.at(i).empwptr->empptr->get_role_idx();
+        if(vec_empsort.at(i).empwptr->empptr->is_closer() && vec_shiftcnt.at(role_idx).at(day).at(shift) == 0){
 			// Then, check if the employee has exceeded their max number of
 			// days worked.
 			if(vec_empsort.at(i).empwptr->daycnt < vec_empsort.at(i).empwptr->empptr->get_days_max()){
@@ -132,7 +150,7 @@ void Schedule::set_closers(){
                     vec_empsort.at(i).inc_daycnt();
                     vec_empsort.at(i).empwptr->vec_assigned_days.at(day) = true;
                     vec_empsort.at(i).empwptr->vec_shifts.at(day) = shift_string;
-                    vec_shiftcnt.at(day).at(shift)++;
+                    vec_shiftcnt.at(role_idx).at(day).at(shift)++;
                 }
 			}	
 		}
@@ -143,6 +161,12 @@ void Schedule::create(const std::vector<Manpower>& vec_manp){
 	// Now we create the schedule using the Schedule object passed in.
 	// We will cycle through the sorted vector which holds the employees
 	// and their EmpSPL values.
+
+    // Pass 1 : Set only minimum amount of employees to satisfy Manpower requirements
+    // Pass 2 : Fill in other employees to meet their preferred amount of shifts.
+
+    static int pass = 1;
+
 	for(int i = vec_empsort.size()-1; i >= 0; i--){
 		// First, check if the employee has exceeded their max number of
 		// days worked.
@@ -150,7 +174,11 @@ void Schedule::create(const std::vector<Manpower>& vec_manp){
 			// Convenient temp var for holding the day in question
 			int day = vec_empsort.at(i).day;
 			int shift = vec_empsort.at(i).shift;
-            if(vec_shiftcnt.at(day).at(shift) < vec_manp.at(0).get_shift_max(day,shift) ){
+            int role_idx = vec_empsort.at(i).empwptr->empptr->get_role_idx();
+
+            int pass_check = (pass == 1) ? vec_manp.at(role_idx).get_shift_min(day,shift) : vec_manp.at(role_idx).get_shift_max(day,shift);
+
+            if(vec_shiftcnt.at(role_idx).at(day).at(shift) < pass_check ){
 				// Next, check if the day has already been added for the employee.
 				// This check prevents the program from overwriting already 
 				// assigned days with lower priority shifts.
@@ -167,23 +195,33 @@ void Schedule::create(const std::vector<Manpower>& vec_manp){
 					vec_empsort.at(i).inc_daycnt();
 					vec_empsort.at(i).empwptr->vec_assigned_days.at(day) = true;
 					vec_empsort.at(i).empwptr->vec_shifts.at(day) = shift_string;
-					vec_shiftcnt.at(day).at(shift)++;
+                    vec_shiftcnt.at(role_idx).at(day).at(shift)++;
 				}
 			}
 		}
 	}
+    if(pass == 1){
+        pass++;
+        create(vec_manp);
+    } else {
+        pass = 1;
+    }
 }
 
 void Schedule::print_spls(){
 	std::cout << "SPLs...\n";
-	for(size_t d = 0; d < vec_spl.size(); d++){
-		std::cout << "Day " << d << " : ";
-		for(size_t s = 0; s < vec_spl.at(d).size(); s++){
-			std::cout << vec_spl.at(d).at(s) << " ";
-		}
-		std::cout << "\n";
-	}
-	std::cout << "\n";
+    // HARDCODE : 2
+    for(size_t r = 0; r < 2; r++){
+        std::cout << "ROLE : " << r << "\n";
+        for(size_t d = 0; d < vec_spl.size(); d++){
+            std::cout << "Day " << d << " : ";
+            for(size_t s = 0; s < vec_spl.at(d).size(); s++){
+                std::cout << vec_spl.at(r).at(d).at(s) << " ";
+            }
+            std::cout << "\n";
+        }
+        std::cout << std::endl;
+    }
 }
 
 void Schedule::print_empspls(){
@@ -235,11 +273,14 @@ void Schedule::print_schedule(){
 	std::cout << "\n";
 }
 void Schedule::print_shiftcnt(){
-    for(size_t i = 0; i < vec_shiftcnt.size(); i++){
-        for(size_t j = 0; j < vec_shiftcnt.at(i).size(); j++){
-            std::cout << vec_shiftcnt.at(i).at(j) << " ";
+    // HARDCODE : 2
+    for(size_t r = 0; r < 2; r++){
+        for(size_t i = 0; i < vec_shiftcnt.size(); i++){
+            for(size_t j = 0; j < vec_shiftcnt.at(i).size(); j++){
+                std::cout << vec_shiftcnt.at(r).at(i).at(j) << " ";
+            }
+            std::cout << std::endl;
         }
-        std::cout << std::endl;
     }
 }
 

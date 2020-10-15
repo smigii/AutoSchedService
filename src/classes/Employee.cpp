@@ -122,3 +122,12 @@ void Employee::set_avail(int day, std::vector<float> vec){
 void Employee::set_avail(int day, int shift, float val){
     avail.at(day).at(shift) = val;
 }
+
+// TEMPORARY
+int Employee::get_role_idx() const{
+    if(role == "Sales"){
+        return 0;
+    } else {
+        return 1;
+    }
+}

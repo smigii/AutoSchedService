@@ -54,12 +54,13 @@ Empwrapper::Empwrapper(const Employee* empptr)
 	eas = (total_shifts / temp_score) * (5 / (float)empptr->get_days_max());
 }
 
-void Empwrapper::set_empspl(const std::vector<std::vector<float>>& vec_spl){
-	for(size_t d = 0; d < vec_spl.size(); d++){
+void Empwrapper::set_empspl(const std::vector<std::vector<std::vector<float>>>& vec_spl){
+    int role_idx = empptr->get_role_idx();
+    for(size_t d = 0; d < vec_spl.at(role_idx).size(); d++){
 		vec_empspl.push_back(std::vector<float>());
 
-		for(size_t s = 0; s < vec_spl.at(d).size(); s++){
-			float empspl_score = (vec_avail.at(d).at(s) * vec_spl.at(d).at(s) * eas);
+        for(size_t s = 0; s < vec_spl.at(role_idx).at(d).size(); s++){
+            float empspl_score = (vec_avail.at(d).at(s) * vec_spl.at(role_idx).at(d).at(s) * eas);
 			vec_empspl.at(d).push_back(empspl_score);
 		}
 	}

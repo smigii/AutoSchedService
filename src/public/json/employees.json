@@ -209,6 +209,44 @@
 		"sat": [9.5, 18]
 	},
 	{
+		"name": "Tom",
+		"closer": false,
+		"role":	"Tech",
+		"priority": 5,
+
+		"max_hours": 40,
+		"max_days": 2,
+		"min_hours": 40,
+		"min_days": 2,
+
+		"sun": [-1, -1],
+		"mon": [9.5, 18, -1, -1],
+		"tue": [9.5, 18, -1, -1],
+		"wed": [9.5, 18, -1, -1],
+		"thu": [9.5, 18, -1, -1],
+		"fri": [9.5, 18, -1, -1],
+		"sat": [-1, -1]
+	},
+	{
+		"name": "Lucas",
+		"closer": false,
+		"role":	"Tech",
+		"priority": 5,
+
+		"max_hours": 40,
+		"max_days": 3,
+		"min_hours": 40,
+		"min_days": 3,
+
+		"sun": [-1, -1],
+		"mon": [9.5, 18, 11.5, 20],
+		"tue": [9.5, 18, 11.5, 20],
+		"wed": [9.5, 18, 11.5, 20],
+		"thu": [9.5, 18, 11.5, 20],
+		"fri": [9.5, 18, 11.5, 20],
+		"sat": [9.5, 18]
+	},
+	{
 		"name": "Gman",
 		"closer": false,
 		"role":	"Tech",

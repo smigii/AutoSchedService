@@ -84,7 +84,7 @@ struct Empwrapper{
 
 	// This can only be called AFTER the SPL vector is initialized, since it is
 	// needed to calculate the EmpSPLs.
-	void set_empspl(const std::vector<std::vector<float>>& vec_spl);
+    void set_empspl(const std::vector<std::vector<std::vector<float>>>& vec_spl);
 	void set_idx(int i);
 	
 };

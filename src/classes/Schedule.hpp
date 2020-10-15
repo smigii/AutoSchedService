@@ -18,8 +18,8 @@ class Schedule
 		std::vector<Empwrapper> vec_empwrappers;
 		std::vector<EmpSortWrapper> vec_empsort;
 
-		std::vector<std::vector<float>> vec_spl;
-		std::vector<std::vector<int>> vec_shiftcnt;
+        std::vector<std::vector<std::vector<float>>> vec_spl;       // L1=Role, L2=Day, L3=SPLs
+        std::vector<std::vector<std::vector<int>>> vec_shiftcnt;    // L1=Role, L2=Day, L3=Counts
 
 	public:
 		Schedule();

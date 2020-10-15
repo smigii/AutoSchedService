@@ -63,6 +63,9 @@ class Employee
 		std::vector<float> get_avail(int day) const;
 		void set_avail(int day, std::vector<float> vec);
         void set_avail(int day, int shift, float val);
+
+        // TEMPORARY HARD CODED
+        int get_role_idx() const;
 };
 
 
