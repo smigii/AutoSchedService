@@ -69,7 +69,7 @@ void Schedule::setup(const std::vector<Employee>& vec_emps, const std::vector<Ma
 		for(size_t s = 0; s < vec_spl.at(d).size(); s++){
 			// Calculate the SPL using formula described in initial comment.
 			float emp_avail = vec_spl.at(d).at(s);
-			float emp_needed = vec_manp.at(0).get_shift_val(d,s);
+            float emp_needed = vec_manp.at(0).get_shift_min(d,s);
 			if(emp_avail != emp_needed){
 				vec_spl.at(d).at(s) = (emp_avail / (emp_avail - emp_needed));
 			} else {
@@ -150,7 +150,7 @@ void Schedule::create(const std::vector<Manpower>& vec_manp){
 			// Convenient temp var for holding the day in question
 			int day = vec_empsort.at(i).day;
 			int shift = vec_empsort.at(i).shift;
-			if(vec_shiftcnt.at(day).at(shift) < vec_manp.at(0).get_shift_val(day,shift) ){
+            if(vec_shiftcnt.at(day).at(shift) < vec_manp.at(0).get_shift_max(day,shift) ){
 				// Next, check if the day has already been added for the employee.
 				// This check prevents the program from overwriting already 
 				// assigned days with lower priority shifts.

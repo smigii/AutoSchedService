@@ -19,7 +19,7 @@ void Manpower::print_data(){
 		for(size_t j = 0; j < data.at(i).size(); j++){
 			std::cout << data.at(i).at(j) << " ";
 		}
-		std::cout << "\n";
+        std::cout << std::endl;
 	}
 }
 
@@ -31,6 +31,13 @@ int Manpower::get_shift_val(int day, int shift) const{
 	return(data.at(day).at(shift));
 }
 
+int Manpower::get_shift_min(int day, int shift) const{
+    return(data.at(day).at(shift*2));
+}
+int Manpower::get_shift_max(int day, int shift) const{
+    return(data.at(day).at(shift*2 + 1));
+}
+
 int Manpower::get_num_shifts(int day) const{
-	return(data.at(day).size());
+    return(data.at(day).size() / 2);
 }

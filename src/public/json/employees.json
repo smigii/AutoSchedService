@@ -1,5 +1,24 @@
 [
 	{
+		"name": "-- FLOOR --",
+		"closer": true,
+		"role":	"Sales",
+		"priority": 5,
+
+		"max_hours": 40,
+		"max_days": 0,
+		"min_hours": 40,
+		"min_days": 0,
+
+		"sun": [-1, -1],
+		"mon": [-1, -1, -1, -1],
+		"tue": [-1, -1, -1, -1],
+		"wed": [-1, -1, -1, -1],
+		"thu": [-1, -1, -1, -1],
+		"fri": [-1, -1, -1, -1],
+		"sat": [-1, -1]
+	},
+	{
 		"name": "Chris",
 		"closer": true,
 		"role":	"Sales",
@@ -76,9 +95,9 @@
 		"sat": [9.5, 18]
 	},
 	{
-		"name": "Spiderman",
+		"name": "Jesus",
 		"closer": false,
-		"role":	"Tech",
+		"role":	"Sales",
 		"priority": 3,
 
 		"max_hours": 40,
@@ -129,6 +148,82 @@
 		"tue": [-1, -1, 15, 20],
 		"wed": [-1, -1, 15, 20],
 		"thu": [-1, -1, 15, 20],
+		"fri": [-1, -1, 15, 20],
+		"sat": [9.5, 18]
+	},
+	{
+		"name": "-- SHOP --",
+		"closer": true,
+		"role":	"Tech",
+		"priority": 5,
+
+		"max_hours": 40,
+		"max_days": 0,
+		"min_hours": 40,
+		"min_days": 0,
+
+		"sun": [-1, -1],
+		"mon": [-1, -1, -1, -1],
+		"tue": [-1, -1, -1, -1],
+		"wed": [-1, -1, -1, -1],
+		"thu": [-1, -1, -1, -1],
+		"fri": [-1, -1, -1, -1],
+		"sat": [-1, -1]
+	},
+	{
+		"name": "Ktron",
+		"closer": false,
+		"role":	"Tech",
+		"priority": 5,
+
+		"max_hours": 40,
+		"max_days": 5,
+		"min_hours": 40,
+		"min_days": 5,
+
+		"sun": [-1, -1],
+		"mon": [9.5, 18, 11.5, 20],
+		"tue": [9.5, 18, 11.5, 20],
+		"wed": [9.5, 18, 11.5, 20],
+		"thu": [9.5, 18, 11.5, 20],
+		"fri": [9.5, 18, 11.5, 20],
+		"sat": [9.5, 18]
+	},
+	{
+		"name": "Yosh",
+		"closer": false,
+		"role":	"Tech",
+		"priority": 5,
+
+		"max_hours": 40,
+		"max_days": 5,
+		"min_hours": 40,
+		"min_days": 5,
+
+		"sun": [-1, -1],
+		"mon": [9.5, 18, 11.5, 20],
+		"tue": [9.5, 18, 11.5, 20],
+		"wed": [9.5, 18, 11.5, 20],
+		"thu": [9.5, 18, 11.5, 20],
+		"fri": [9.5, 18, 11.5, 20],
+		"sat": [9.5, 18]
+	},
+	{
+		"name": "Gman",
+		"closer": false,
+		"role":	"Tech",
+		"priority": 3,
+
+		"max_hours": 40,
+		"max_days": 3,
+		"min_hours": 40,
+		"min_days": 3,
+
+		"sun": [-1, -1],
+		"mon": [-1, -1, 15, 20],
+		"tue": [9.5, 18, 15, 20],
+		"wed": [9.5, 18, 15, 20],
+		"thu": [9.5, 18, 15, 20],
 		"fri": [-1, -1, 15, 20],
 		"sat": [9.5, 18]
 	}

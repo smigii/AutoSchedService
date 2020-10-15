@@ -64,7 +64,9 @@ autoschedservice::autoschedservice(QWidget *parent)
 
     // Lets us easily make changes to shifts table
     for(size_t d = 0; d < 7; d++){
-        for(size_t e =1; e < manpvec.size()+1; e++){
+        // NEED TO FIX THIS, SHOULD NOT BE HARDCODED!
+        // Need a fn to get the value of the most number of shifts in a day
+        for(size_t e =1; e < 5; e++){
             QTableWidgetItem* pCell = new QTableWidgetItem;
             ui->tableWidget_shifts->setItem(e, d, pCell);
         }
@@ -421,8 +423,8 @@ void autoschedservice::on_comboBox_shiftSelect_currentIndexChanged(int index)
 {
     for(size_t d = 0; d < 7; d++){
         for(size_t s = 0; s < (size_t)manpvec.at(index).get_num_shifts(d); s++){
-            ui->tableWidget_shifts->item(s+1, d)->setText(QString::number(manpvec.at(index).get_shift_val(d, s)));
-//            ui->tableWidget_shifts->item(s+1, d)->setText("TEST");
+            ui->tableWidget_shifts->item((s*2)+1, d)->setText(QString::number(manpvec.at(index).get_shift_min(d, s)));
+            ui->tableWidget_shifts->item((s*2)+2, d)->setText(QString::number(manpvec.at(index).get_shift_max(d, s)));
         }
     }
 }

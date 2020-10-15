@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1085</width>
-    <height>759</height>
+    <height>871</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -829,7 +829,7 @@ border-color: rgb(0, 0, 0);</string>
           </sizepolicy>
          </property>
          <property name="rowCount">
-          <number>3</number>
+          <number>5</number>
          </property>
          <property name="columnCount">
           <number>7</number>
@@ -840,6 +840,8 @@ border-color: rgb(0, 0, 0);</string>
          <attribute name="verticalHeaderVisible">
           <bool>false</bool>
          </attribute>
+         <row/>
+         <row/>
          <row/>
          <row/>
          <row/>
