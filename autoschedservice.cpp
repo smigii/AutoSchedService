@@ -366,10 +366,6 @@ void autoschedservice::on_btn_schedCreate_clicked()
     schedule.create(manpvec);
 
     update_sched_table_contents();
-
-//    schedule.print_empspls();
-//    schedule.print_shiftcnt();
-//    schedule.print_spls();
 }
 
 void autoschedservice::on_btn_schedClear_clicked()

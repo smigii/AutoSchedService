@@ -21,6 +21,8 @@ class Schedule
         std::vector<std::vector<std::vector<float>>> vec_spl;       // L1=Role, L2=Day, L3=SPLs
         std::vector<std::vector<std::vector<int>>> vec_shiftcnt;    // L1=Role, L2=Day, L3=Counts
 
+        size_t num_roles;
+
 	public:
 		Schedule();
 

@@ -6,7 +6,7 @@
 
 Schedule::Schedule()
 {
-	
+    num_roles = 0;
 }
 
 // d = day
@@ -35,6 +35,7 @@ void Schedule::clear(){
 	vec_empsort.clear();
 	vec_spl.clear();
 	vec_shiftcnt.clear();
+    num_roles = 0;
 }
 
 void Schedule::setup(const std::vector<Employee>& vec_emps, const std::vector<Manpower>& vec_manp){
@@ -50,10 +51,10 @@ void Schedule::setup(const std::vector<Employee>& vec_emps, const std::vector<Ma
 	// of the week.
 
     // Cycle through all roles
-    // HARDCODE : 2
-    for(size_t r = 0; r < 2; r++){
+    for(size_t r = 0; r < vec_manp.size(); r++){
         vec_spl.push_back(std::vector<std::vector<float>>());
         vec_shiftcnt.push_back(std::vector<std::vector<int>>());
+        num_roles++;
 
         // Cycle through all days
         for(size_t d = 0; d < 7; d++){
@@ -61,7 +62,7 @@ void Schedule::setup(const std::vector<Employee>& vec_emps, const std::vector<Ma
             vec_shiftcnt.at(r).push_back(std::vector<int>());
 
             // Cycle through each shift of given day
-            for(size_t s = 0; s < (size_t)vec_manp.at(0).get_num_shifts(d); s++){
+            for(size_t s = 0; s < (size_t)vec_manp.at(r).get_num_shifts(d); s++){
                 vec_spl.at(r).at(d).push_back(0);
                 vec_shiftcnt.at(r).at(d).push_back(0);
 
@@ -77,8 +78,7 @@ void Schedule::setup(const std::vector<Employee>& vec_emps, const std::vector<Ma
 
 	// Next, use the info obtained above to calculate the SPL of each shift.
     // For each Role...
-    // HARDCODE : 2
-    for(size_t r = 0; r < 2; r++){
+    for(size_t r = 0; r < num_roles; r++){
         // For each day...
         for(size_t d = 0; d < vec_spl.at(r).size(); d++){
             // For each shift...
@@ -200,6 +200,7 @@ void Schedule::create(const std::vector<Manpower>& vec_manp){
 			}
 		}
 	}
+    print_schedule();
     if(pass == 1){
         pass++;
         create(vec_manp);
@@ -210,12 +211,11 @@ void Schedule::create(const std::vector<Manpower>& vec_manp){
 
 void Schedule::print_spls(){
 	std::cout << "SPLs...\n";
-    // HARDCODE : 2
-    for(size_t r = 0; r < 2; r++){
+    for(size_t r = 0; r < num_roles; r++){
         std::cout << "ROLE : " << r << "\n";
-        for(size_t d = 0; d < vec_spl.size(); d++){
+        for(size_t d = 0; d < vec_spl.at(r).size(); d++){
             std::cout << "Day " << d << " : ";
-            for(size_t s = 0; s < vec_spl.at(d).size(); s++){
+            for(size_t s = 0; s < vec_spl.at(r).at(d).size(); s++){
                 std::cout << vec_spl.at(r).at(d).at(s) << " ";
             }
             std::cout << "\n";
@@ -247,13 +247,13 @@ void Schedule::print_empspls(){
 		std::cout << vec_empsort.at(i).value << "\n";
 	}
 
-	std::cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n";
+    std::cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n" << std::endl;
 }
 
 void Schedule::print_schedule(){
 	std::cout << "SCHEDULE\n\n";
 
-	std::cout << std::setw(13) << ""
+    std::cout << std::setw(16) << ""
 			  << std::setw(12) << "Sun"
 			  << std::setw(12) << "Mon"
 			  << std::setw(12) << "Tue"
@@ -263,21 +263,20 @@ void Schedule::print_schedule(){
 			  << std::setw(12) << "Sat\n";
 
 	for(size_t e = 0; e < vec_empwrappers.size(); e++){
-		std::cout << std::setw(10) << vec_empwrappers.at(e).empptr->get_name() << " : ";
+        std::cout << std::setw(13) << vec_empwrappers.at(e).empptr->get_name() << " : ";
 
 		for(size_t d = 0; d < 7; d++){
 			std:: cout << std::setw(11) << vec_empwrappers.at(e).vec_shifts.at(d) << "|";
 		}
 		std::cout << "\n";
 	}
-	std::cout << "\n";
+    std::cout << std::endl;
 }
 void Schedule::print_shiftcnt(){
-    // HARDCODE : 2
-    for(size_t r = 0; r < 2; r++){
-        for(size_t i = 0; i < vec_shiftcnt.size(); i++){
-            for(size_t j = 0; j < vec_shiftcnt.at(i).size(); j++){
-                std::cout << vec_shiftcnt.at(r).at(i).at(j) << " ";
+    for(size_t r = 0; r < num_roles; r++){
+        for(size_t d = 0; d < vec_shiftcnt.size(); d++){
+            for(size_t s = 0; s < vec_shiftcnt.at(r).at(d).size(); s++){
+                std::cout << vec_shiftcnt.at(r).at(d).at(s) << " ";
             }
             std::cout << std::endl;
         }
