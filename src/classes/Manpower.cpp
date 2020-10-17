@@ -27,6 +27,10 @@ void Manpower::set_data(int day, std::vector<int> vec){
 	data.at(day) = vec;
 }
 
+void Manpower::set_shift(int day, int shift, int val){
+    data.at(day).at(shift) = val;
+}
+
 int Manpower::get_shift_val(int day, int shift) const{
 	return(data.at(day).at(shift));
 }

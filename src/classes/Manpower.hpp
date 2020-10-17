@@ -21,6 +21,8 @@ class Manpower
 
 		void print_data();
 		void set_data(int day, std::vector<int> vec);
+        void set_shift(int day, int shift, int val);
+
         int get_shift_val(int day, int shift) const;        // Will be replaced by get_shift_min or max
 
         int get_shift_min(int day, int shift) const;

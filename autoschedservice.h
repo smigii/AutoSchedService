@@ -52,6 +52,8 @@ private slots:
 
     void on_comboBox_shiftSelect_currentIndexChanged(int index);
 
+    void on_btn_shiftUpdate_clicked();
+
 private:
     Ui::autoschedservice *ui;
 };

@@ -428,3 +428,19 @@ void autoschedservice::on_comboBox_shiftSelect_currentIndexChanged(int index)
         }
     }
 }
+
+void autoschedservice::on_btn_shiftUpdate_clicked()
+{
+    int role_idx = ui->comboBox_shiftSelect->currentIndex();
+
+    // Update availability
+    for(size_t d = 0; d < 7; d++){
+        for(int s = 0; s < manpvec.at(role_idx).get_num_shifts(d)*2; s++){
+            //std::string temp_val = ui->tableWidget_avail->item(s+1, d)->text().toStdString();
+            int temp_val = ui->tableWidget_shifts->item(s+1, d)->text().toInt();
+            manpvec.at(role_idx).set_shift(d, s, temp_val);
+        }
+    }
+    // Clear the schedule object
+    clear_sched_table_contents();
+}

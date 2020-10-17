@@ -1,11 +1,9 @@
 TODO
 
-*DONE Create UI for Scheduling, should be able to create, view and clear
-
-*DONE Connect the assign button and combobox for the sched table.
-
-Create UI for manpower, should be able to create, view and edit
+Create UI for manpower, should be able to create, view and edit.
 
 Let the changes made in the program update the json files.
 
-Back to work on scheduling algorithm
+Start work on supporting dates
+
+Start work on supporting time off requests

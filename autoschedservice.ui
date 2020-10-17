@@ -783,6 +783,26 @@ border-color: rgb(0, 0, 0);</string>
        <string> Shift Manager </string>
       </property>
       <layout class="QGridLayout" name="gridLayout_4">
+       <item row="1" column="5">
+        <widget class="QPushButton" name="btn_shiftRemove">
+         <property name="styleSheet">
+          <string notr="true">color: rgb(252, 175, 62);</string>
+         </property>
+         <property name="text">
+          <string>Remove</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="3">
+        <widget class="QPushButton" name="btn_shiftDupe">
+         <property name="styleSheet">
+          <string notr="true">color: rgb(114, 191, 253);</string>
+         </property>
+         <property name="text">
+          <string>Duplicate</string>
+         </property>
+        </widget>
+       </item>
        <item row="1" column="0" colspan="2">
         <widget class="QComboBox" name="comboBox_shiftSelect">
          <property name="sizePolicy">
@@ -793,34 +813,7 @@ border-color: rgb(0, 0, 0);</string>
          </property>
         </widget>
        </item>
-       <item row="2" column="0" colspan="2">
-        <widget class="QLineEdit" name="lineEdit_shiftName">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="2">
-        <widget class="QPushButton" name="btn_shiftAdd">
-         <property name="styleSheet">
-          <string notr="true">color: rgb(138, 226, 52);</string>
-         </property>
-         <property name="text">
-          <string>Add</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="2">
-        <widget class="QPushButton" name="btn_shiftDupe">
-         <property name="text">
-          <string>Duplicate</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="0" colspan="4">
+       <item row="3" column="0" colspan="6">
         <widget class="QTableWidget" name="tableWidget_shifts">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
@@ -910,17 +903,23 @@ border-color: rgb(0, 0, 0);</string>
          </item>
         </widget>
        </item>
-       <item row="2" column="3">
-        <widget class="QPushButton" name="btn_shiftUpdate">
+       <item row="1" column="4">
+        <widget class="QPushButton" name="btn_shiftAdd">
+         <property name="styleSheet">
+          <string notr="true">color: rgb(138, 226, 52);</string>
+         </property>
          <property name="text">
-          <string>Update</string>
+          <string>Add</string>
          </property>
         </widget>
        </item>
-       <item row="1" column="3">
-        <widget class="QPushButton" name="btn_shiftRemove">
+       <item row="1" column="2">
+        <widget class="QPushButton" name="btn_shiftUpdate">
+         <property name="styleSheet">
+          <string notr="true">color: rgb(114, 191, 253);</string>
+         </property>
          <property name="text">
-          <string>Remove</string>
+          <string>Update</string>
          </property>
         </widget>
        </item>
