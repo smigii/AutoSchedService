@@ -1,8 +1,8 @@
 TODO
 
-Create UI for manpower, should be able to create, view and edit.
+DONE Create UI for manpower, should be able to create, view and edit.
 
-Let the changes made in the program update the json files.
+DONE Let the changes made in the program update the json files.
 
 Start work on supporting dates
 

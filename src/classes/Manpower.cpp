@@ -42,6 +42,10 @@ int Manpower::get_shift_max(int day, int shift) const{
     return(data.at(day).at(shift*2 + 1));
 }
 
+std::vector<int> Manpower::get_shifts_day(int d) const{
+    return(data.at(d));
+}
+
 int Manpower::get_num_shifts(int day) const{
     return(data.at(day).size() / 2);
 }

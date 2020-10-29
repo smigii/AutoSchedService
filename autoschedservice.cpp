@@ -444,3 +444,13 @@ void autoschedservice::on_btn_shiftUpdate_clicked()
     // Clear the schedule object
     clear_sched_table_contents();
 }
+
+void autoschedservice::on_btn_shiftSave_clicked()
+{
+    save_manpower(manpvec);
+}
+
+void autoschedservice::on_btn_empSave_clicked()
+{
+    save_employees(empvec);
+}

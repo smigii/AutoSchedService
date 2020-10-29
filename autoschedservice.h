@@ -54,6 +54,10 @@ private slots:
 
     void on_btn_shiftUpdate_clicked();
 
+    void on_btn_shiftSave_clicked();
+
+    void on_btn_empSave_clicked();
+
 private:
     Ui::autoschedservice *ui;
 };

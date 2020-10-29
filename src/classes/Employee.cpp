@@ -115,6 +115,9 @@ void Employee::set_priority(unsigned int p){
 std::vector<float> Employee::get_avail(int day) const{
 	return avail.at(day);
 }
+std::vector<std::vector<float>> Employee::get_avail() const{
+    return avail;
+}
 
 void Employee::set_avail(int day, std::vector<float> vec){
 	avail.at(day) = vec;

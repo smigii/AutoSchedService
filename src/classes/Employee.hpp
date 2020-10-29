@@ -61,6 +61,7 @@ class Employee
         void set_priority(unsigned int p);
 
 		std::vector<float> get_avail(int day) const;
+        std::vector<std::vector<float>> get_avail() const;
 		void set_avail(int day, std::vector<float> vec);
         void set_avail(int day, int shift, float val);
 
