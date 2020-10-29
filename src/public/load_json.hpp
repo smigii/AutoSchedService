@@ -13,6 +13,58 @@
 #include <nlohmann/json.hpp>
 using json = nlohmann::json;
 
+void save_timeoff(std::vector<Employee>& vec_emps){
+    #ifdef _WIN32
+        std::ofstream ofs("..\\AutoSchedService\\src\\public\\json\\timeoff.json");
+    #endif
+
+    #ifdef __gnu_linux__
+        std::ofstream ofs("../AutoSchedService/src/public/json/timeoff.json");
+    #endif
+
+    nlohmann::ordered_json jsong = nlohmann::ordered_json::array();
+
+    for(size_t e = 0; e < vec_emps.size(); e++){
+        jsong[e]["name"] = vec_emps.at(e).get_name();
+        for(int t = 0; t < vec_emps.at(e).get_vectoff_size(); t++){
+            jsong[e]["off"][t]["start day"] = vec_emps.at(e).get_toff(t).get_start_date();
+            jsong[e]["off"][t]["end day"] = vec_emps.at(e).get_toff(t).get_end_date();
+            jsong[e]["off"][t]["start shift"] = vec_emps.at(e).get_toff(t).get_start_shift();
+            jsong[e]["off"][t]["end shift"] = vec_emps.at(e).get_toff(t).get_end_shift();
+            jsong[e]["off"][t]["description"] = vec_emps.at(e).get_toff(t).get_description();
+        }
+    }
+    ofs << jsong.dump(4);
+    ofs.close();
+}
+void load_timeoff(std::vector<Employee>& vec_emps){
+    #ifdef _WIN32
+        std::ifstream ifs("..\\AutoSchedService\\src\\public\\json\\timeoff.json");
+    #endif
+
+    #ifdef __gnu_linux__
+        std::ifstream ifs("../AutoSchedService/src/public/json/timeoff.json");
+    #endif
+
+    json jsong;
+    ifs >> jsong;
+
+    for(size_t e = 0; e < jsong.size(); e++){
+        for(size_t i = 0; i < jsong[e]["off"].size(); i++){
+            std::string name = jsong[e]["name"];
+            std::vector<int> start_d = jsong[e]["off"][i]["start day"];
+            std::vector<int> end_d = jsong[e]["off"][i]["end day"];
+            int start_s = jsong[e]["off"][i]["start shift"];
+            int end_s = jsong[e]["off"][i]["end shift"];
+            std::string str = jsong[e]["off"][i]["description"];
+
+            vec_emps.at(e).add_timeoff(TimeOff(name, start_d, end_d, start_s, end_s, str));
+        }
+    }
+
+    ifs.close();
+}
+
 void load_employees(std::vector<Employee>& vec_emps){
     #ifdef _WIN32
         std::ifstream ifs("..\\AutoSchedService\\src\\public\\json\\employees.json");
@@ -53,6 +105,7 @@ void load_employees(std::vector<Employee>& vec_emps){
         id++;
 	}
     ifs.close();
+    load_timeoff(vec_emps);
 }
 
 void save_employees(std::vector<Employee>& vec_emps){
@@ -86,8 +139,11 @@ void save_employees(std::vector<Employee>& vec_emps){
         jsong[e]["sat"] = vec_emps.at(e).get_avail(6);
     }
     ofs << jsong.dump(4);
-    std::cout << "JSON emp written." << std::endl;
     ofs.close();
+
+    save_timeoff(vec_emps);
+
+    std::cout << "JSON emp written." << std::endl;
 }
 
 void load_manpower(std::vector<Manpower>& vec_manp){

@@ -2,6 +2,7 @@
 #include "ui_autoschedservice.h"
 
 #include <algorithm>                    // Needed for std::min
+#include <string>
 
 #include "src/public/time_conv.hpp"
 
@@ -154,6 +155,7 @@ void autoschedservice::on_listWidget_emps_itemSelectionChanged()
     ui->spinBox_empHoursMin->setValue(empvec.at(index).get_hours_min());
     ui->spinBox_empHoursMax->setValue(empvec.at(index).get_hours_max());
 
+    // Set availability table
     for(size_t d = 0; d < 7; d++){
         for(size_t s = 0; s < empvec.at(index).get_avail(d).size(); s++){
             float temp_num = empvec.at(index).get_avail(d).at(s);
@@ -165,6 +167,15 @@ void autoschedservice::on_listWidget_emps_itemSelectionChanged()
             }
             ui->tableWidget_avail->item(s+1, d)->setText(text);
         }
+    }
+
+    // Reset the timeoff list...
+    ui->listWidget_timeoff->clear();
+    // ...Then set time off list
+    for(int i = 0; i < empvec.at(index).get_vectoff_size(); i++){
+        TimeOff temp = empvec.at(index).get_toff(i);
+
+        ui->listWidget_timeoff->addItem(QString::fromStdString(temp.get_label()));
     }
 }
 
@@ -359,6 +370,16 @@ void autoschedservice::clear_sched_table_contents(){
 }
 void autoschedservice::on_btn_schedCreate_clicked()
 {
+    // Need to get the date, then update all employees availability taking into account their time off
+
+    // 1 = Monday, 7 = Sunday
+    int day_offset = ui->dateEdit->date().dayOfWeek();
+    if(day_offset == 7)
+        day_offset = 0;
+    int day = ui->dateEdit->date().dayOfYear() - day_offset;    // This rounds the selected date down to the nearest Sunday.
+
+    schedule.set_timeoffs(day);
+
     if(schedule.get_empwvec_size() == 0){
         schedule.setup(empvec, manpvec);
     }
@@ -453,4 +474,56 @@ void autoschedservice::on_btn_shiftSave_clicked()
 void autoschedservice::on_btn_empSave_clicked()
 {
     save_employees(empvec);
+}
+
+// FOR TESTING
+void autoschedservice::on_pushButton_clicked()
+{
+    schedule.set_timeoffs(1);
+}
+
+void autoschedservice::on_listWidget_timeoff_currentRowChanged(int currentRow)
+{
+    // Set ID val
+    QListWidgetItem* itm = ui->listWidget_emps->currentItem();
+    int idx_e = ui->listWidget_emps->row(itm);
+    int idx_t;
+    // Prevents crash when selecting new employee (currentRow gets set to -1)
+    if(currentRow < 0)
+        idx_t = 0;
+    else
+        idx_t = currentRow;
+
+    TimeOff temp = empvec.at(idx_e).get_toff(idx_t);
+
+    QDate date, date2 = QDate();
+    date.setDate(temp.get_start_year(), temp.get_start_month(), temp.get_start_day());
+    date2.setDate(temp.get_end_year(), temp.get_end_month(), temp.get_end_day());
+
+    ui->dateEdit_timeoffStart->setDate(date);
+    ui->dateEdit_timeoffEnd->setDate(date2);
+
+    ui->spinBox_timeoffStart->setValue(temp.get_start_shift());
+    ui->spinBox_timeoffEnd->setValue(temp.get_end_shift());
+
+    ui->lineEdit_timeoff->setText(QString::fromStdString(temp.get_description()));
+}
+
+void autoschedservice::on_btn_timeoffAdd_clicked()
+{
+    QListWidgetItem* itm = ui->listWidget_emps->currentItem();
+    int idx_e = ui->listWidget_emps->row(itm);
+
+    std::string name = empvec.at(idx_e).get_name();
+
+    TimeOff temp = TimeOff(name);
+
+    empvec.at(idx_e).add_timeoff(temp);
+
+    ui->listWidget_timeoff->addItem(QString::fromStdString(temp.get_label()));
+}
+
+void autoschedservice::on_btn_timeoffUpdate_clicked()
+{
+
 }

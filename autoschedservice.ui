@@ -24,6 +24,171 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="1" rowspan="3">
+     <widget class="QGroupBox" name="groupBox_3">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+        <horstretch>8</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: white;</string>
+      </property>
+      <property name="title">
+       <string> Scheduling </string>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_3">
+       <item row="0" column="1">
+        <widget class="QPushButton" name="btn_schedClear">
+         <property name="styleSheet">
+          <string notr="true">color: rgb(252, 175, 62);</string>
+         </property>
+         <property name="text">
+          <string>Clear</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="4">
+        <widget class="QPushButton" name="btn_schedAssign">
+         <property name="styleSheet">
+          <string notr="true">color: rgb(138, 226, 52);</string>
+         </property>
+         <property name="text">
+          <string>Assign</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="3">
+        <widget class="QComboBox" name="comboBox_schedAssign"/>
+       </item>
+       <item row="2" column="0" colspan="5">
+        <widget class="QTableWidget" name="tableWidget_schedule">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
+         <property name="selectionMode">
+          <enum>QAbstractItemView::SingleSelection</enum>
+         </property>
+         <property name="rowCount">
+          <number>1</number>
+         </property>
+         <property name="columnCount">
+          <number>8</number>
+         </property>
+         <attribute name="horizontalHeaderVisible">
+          <bool>false</bool>
+         </attribute>
+         <attribute name="horizontalHeaderHighlightSections">
+          <bool>true</bool>
+         </attribute>
+         <attribute name="horizontalHeaderStretchLastSection">
+          <bool>false</bool>
+         </attribute>
+         <attribute name="verticalHeaderVisible">
+          <bool>false</bool>
+         </attribute>
+         <attribute name="verticalHeaderStretchLastSection">
+          <bool>false</bool>
+         </attribute>
+         <row/>
+         <column/>
+         <column/>
+         <column/>
+         <column/>
+         <column/>
+         <column/>
+         <column/>
+         <column/>
+         <item row="0" column="0">
+          <property name="flags">
+           <set>ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
+          </property>
+         </item>
+         <item row="0" column="1">
+          <property name="text">
+           <string>Sun</string>
+          </property>
+          <property name="flags">
+           <set>ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
+          </property>
+         </item>
+         <item row="0" column="2">
+          <property name="text">
+           <string>Mon</string>
+          </property>
+          <property name="flags">
+           <set>ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
+          </property>
+         </item>
+         <item row="0" column="3">
+          <property name="text">
+           <string>Tue</string>
+          </property>
+          <property name="flags">
+           <set>ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
+          </property>
+         </item>
+         <item row="0" column="4">
+          <property name="text">
+           <string>Wed</string>
+          </property>
+          <property name="flags">
+           <set>ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
+          </property>
+         </item>
+         <item row="0" column="5">
+          <property name="text">
+           <string>Thu</string>
+          </property>
+          <property name="flags">
+           <set>ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
+          </property>
+         </item>
+         <item row="0" column="6">
+          <property name="text">
+           <string>Fri</string>
+          </property>
+          <property name="flags">
+           <set>ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
+          </property>
+         </item>
+         <item row="0" column="7">
+          <property name="text">
+           <string>Sat</string>
+          </property>
+          <property name="flags">
+           <set>ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QPushButton" name="btn_schedCreate">
+         <property name="styleSheet">
+          <string notr="true">color: rgb(138, 226, 52);</string>
+         </property>
+         <property name="text">
+          <string>Create</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="2">
+        <widget class="QDateEdit" name="dateEdit">
+         <property name="displayFormat">
+          <string>dd-MM-yyyy</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
     <item row="0" column="0">
      <widget class="QGroupBox" name="groupBox">
       <property name="sizePolicy">
@@ -39,8 +204,8 @@
        <string> Employee Manager </string>
       </property>
       <layout class="QGridLayout" name="gridLayout_2">
-       <item row="8" column="2">
-        <widget class="QLabel" name="lbl_days">
+       <item row="3" column="3" rowspan="2">
+        <widget class="QLabel" name="lbl_empIdVal">
          <property name="sizePolicy">
           <sizepolicy hsizetype="MinimumExpanding" vsizetype="Minimum">
            <horstretch>1</horstretch>
@@ -51,62 +216,31 @@
           <string notr="true">color: rgb(211, 215, 207);</string>
          </property>
          <property name="text">
-          <string>Days</string>
+          <string/>
          </property>
         </widget>
        </item>
-       <item row="11" column="1">
-        <widget class="QPushButton" name="btn_empMoveDown">
+       <item row="5" column="3">
+        <widget class="QLineEdit" name="lineEdit_empName">
          <property name="sizePolicy">
-          <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-           <horstretch>1</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="text">
-          <string>⇩</string>
-         </property>
-        </widget>
-       </item>
-       <item row="11" column="0">
-        <widget class="QPushButton" name="btn_empMoveUp">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-           <horstretch>1</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="text">
-          <string>⇧</string>
-         </property>
-        </widget>
-       </item>
-       <item row="10" column="2">
-        <widget class="QLabel" name="lbl_empPriority">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="MinimumExpanding" vsizetype="Minimum">
-           <horstretch>1</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="text">
-          <string>Priority</string>
-         </property>
-        </widget>
-       </item>
-       <item row="6" column="2">
-        <widget class="QLabel" name="lbl_empRole">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="MinimumExpanding" vsizetype="Minimum">
+          <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
            <horstretch>1</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
          <property name="styleSheet">
-          <string notr="true">color: rgb(211, 215, 207);</string>
+          <string notr="true">color: rgb(211, 215, 207);
+border: 1px solid rgb(88, 88, 88);</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="3">
+        <widget class="QPushButton" name="btn_empSave">
+         <property name="styleSheet">
+          <string notr="true">color: rgb(138, 226, 52);</string>
          </property>
          <property name="text">
-          <string>Role</string>
+          <string>Save</string>
          </property>
         </widget>
        </item>
@@ -126,6 +260,22 @@
          </property>
         </widget>
        </item>
+       <item row="3" column="2" rowspan="2">
+        <widget class="QLabel" name="lbl_empId">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="MinimumExpanding" vsizetype="Minimum">
+           <horstretch>1</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: rgb(211, 215, 207);</string>
+         </property>
+         <property name="text">
+          <string>ID</string>
+         </property>
+        </widget>
+       </item>
        <item row="7" column="2">
         <widget class="QLabel" name="lbl_closer">
          <property name="sizePolicy">
@@ -139,22 +289,6 @@
          </property>
          <property name="text">
           <string>Closer?</string>
-         </property>
-        </widget>
-       </item>
-       <item row="9" column="2">
-        <widget class="QLabel" name="lbl_empHours">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="MinimumExpanding" vsizetype="Minimum">
-           <horstretch>1</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">color: rgb(211, 215, 207);</string>
-         </property>
-         <property name="text">
-          <string>Hours</string>
          </property>
         </widget>
        </item>
@@ -180,6 +314,239 @@
          </property>
          <property name="styleSheet">
           <string notr="true">color: rgb(211, 215, 207);</string>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="3">
+        <widget class="QComboBox" name="comboBox_empRole">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+           <horstretch>1</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: rgb(211, 215, 207);</string>
+         </property>
+         <item>
+          <property name="text">
+           <string>Sales</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Tech</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>None</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item row="11" column="2" colspan="2">
+        <widget class="QPushButton" name="btn_empRm">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="MinimumExpanding" vsizetype="Minimum">
+           <horstretch>2</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>50</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>100000</width>
+           <height>100000</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: rgb(252, 175, 62);</string>
+         </property>
+         <property name="text">
+          <string>Remove</string>
+         </property>
+        </widget>
+       </item>
+       <item row="10" column="2">
+        <widget class="QLabel" name="lbl_empPriority">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="MinimumExpanding" vsizetype="Minimum">
+           <horstretch>1</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string>Priority</string>
+         </property>
+        </widget>
+       </item>
+       <item row="9" column="2">
+        <widget class="QLabel" name="lbl_empHours">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="MinimumExpanding" vsizetype="Minimum">
+           <horstretch>1</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: rgb(211, 215, 207);</string>
+         </property>
+         <property name="text">
+          <string>Hours</string>
+         </property>
+        </widget>
+       </item>
+       <item row="9" column="3">
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <item>
+          <widget class="QSpinBox" name="spinBox_empHoursMin">
+           <property name="styleSheet">
+            <string notr="true">color: rgb(211, 215, 207);</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSpinBox" name="spinBox_empHoursMax">
+           <property name="styleSheet">
+            <string notr="true">color: rgb(211, 215, 207);</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item row="6" column="2">
+        <widget class="QLabel" name="lbl_empRole">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="MinimumExpanding" vsizetype="Minimum">
+           <horstretch>1</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: rgb(211, 215, 207);</string>
+         </property>
+         <property name="text">
+          <string>Role</string>
+         </property>
+        </widget>
+       </item>
+       <item row="7" column="3">
+        <widget class="QCheckBox" name="chkBox_empCloser">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+           <horstretch>1</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: rgb(211, 215, 207);</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item row="8" column="3">
+        <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,1">
+         <item>
+          <widget class="QSpinBox" name="spinBox_empDaysMin">
+           <property name="styleSheet">
+            <string notr="true">color: rgb(211, 215, 207);</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSpinBox" name="spinBox_empDaysMax">
+           <property name="styleSheet">
+            <string notr="true">color: rgb(211, 215, 207);</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item row="11" column="0">
+        <widget class="QPushButton" name="btn_empMoveUp">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+           <horstretch>1</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string>⇧</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="2">
+        <widget class="QPushButton" name="btn_empAdd">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="MinimumExpanding" vsizetype="Minimum">
+           <horstretch>2</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>50</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>100000</width>
+           <height>100000</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: rgb(138, 226, 52);</string>
+         </property>
+         <property name="text">
+          <string>Add</string>
+         </property>
+        </widget>
+       </item>
+       <item row="10" column="3">
+        <widget class="QSpinBox" name="spinBox_empPriority">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+           <horstretch>1</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+        </widget>
+       </item>
+       <item row="11" column="1">
+        <widget class="QPushButton" name="btn_empMoveDown">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+           <horstretch>1</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string>⇩</string>
+         </property>
+        </widget>
+       </item>
+       <item row="8" column="2">
+        <widget class="QLabel" name="lbl_days">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="MinimumExpanding" vsizetype="Minimum">
+           <horstretch>1</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: rgb(211, 215, 207);</string>
+         </property>
+         <property name="text">
+          <string>Days</string>
          </property>
         </widget>
        </item>
@@ -242,138 +609,6 @@
           </widget>
          </item>
         </layout>
-       </item>
-       <item row="11" column="2" colspan="2">
-        <widget class="QPushButton" name="btn_empRm">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="MinimumExpanding" vsizetype="Minimum">
-           <horstretch>2</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>50</width>
-           <height>25</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>100000</width>
-           <height>100000</height>
-          </size>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">color: rgb(252, 175, 62);</string>
-         </property>
-         <property name="text">
-          <string>Remove</string>
-         </property>
-        </widget>
-       </item>
-       <item row="5" column="3">
-        <widget class="QLineEdit" name="lineEdit_empName">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
-           <horstretch>1</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">color: rgb(211, 215, 207);
-border: 1px solid rgb(88, 88, 88);</string>
-         </property>
-        </widget>
-       </item>
-       <item row="6" column="3">
-        <widget class="QComboBox" name="comboBox_empRole">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
-           <horstretch>1</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">color: rgb(211, 215, 207);</string>
-         </property>
-         <item>
-          <property name="text">
-           <string>Sales</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Tech</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>None</string>
-          </property>
-         </item>
-        </widget>
-       </item>
-       <item row="8" column="3">
-        <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,1">
-         <item>
-          <widget class="QSpinBox" name="spinBox_empDaysMin">
-           <property name="styleSheet">
-            <string notr="true">color: rgb(211, 215, 207);</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QSpinBox" name="spinBox_empDaysMax">
-           <property name="styleSheet">
-            <string notr="true">color: rgb(211, 215, 207);</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item row="7" column="3">
-        <widget class="QCheckBox" name="chkBox_empCloser">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
-           <horstretch>1</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">color: rgb(211, 215, 207);</string>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-       </item>
-       <item row="9" column="3">
-        <layout class="QHBoxLayout" name="horizontalLayout_2">
-         <item>
-          <widget class="QSpinBox" name="spinBox_empHoursMin">
-           <property name="styleSheet">
-            <string notr="true">color: rgb(211, 215, 207);</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QSpinBox" name="spinBox_empHoursMax">
-           <property name="styleSheet">
-            <string notr="true">color: rgb(211, 215, 207);</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item row="10" column="3">
-        <widget class="QSpinBox" name="spinBox_empPriority">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
-           <horstretch>1</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-        </widget>
        </item>
        <item row="14" column="0" colspan="4">
         <widget class="QTabWidget" name="tabWidget">
@@ -479,7 +714,7 @@ QTabBar::tab:left:only-one, QTabBar::tab:right:only-one {
 }</string>
          </property>
          <property name="currentIndex">
-          <number>0</number>
+          <number>1</number>
          </property>
          <widget class="QWidget" name="tab">
           <property name="styleSheet">
@@ -701,83 +936,118 @@ QTabBar::tab:left:only-one, QTabBar::tab:right:only-one {
           <attribute name="title">
            <string>Time Off</string>
           </attribute>
+          <layout class="QGridLayout" name="gridLayout_5">
+           <item row="3" column="1">
+            <widget class="QLabel" name="lbl_timoff_sd">
+             <property name="text">
+              <string>Start Date</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="2">
+            <widget class="QDateEdit" name="dateEdit_timeoffStart">
+             <property name="displayFormat">
+              <string>dd-MM-yyyy</string>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="2">
+            <widget class="QDateEdit" name="dateEdit_timeoffEnd">
+             <property name="displayFormat">
+              <string>dd-MM-yyyy</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="QPushButton" name="btn_timeoffAdd">
+             <property name="styleSheet">
+              <string notr="true">color: rgb(138, 226, 52);</string>
+             </property>
+             <property name="text">
+              <string>Add</string>
+             </property>
+            </widget>
+           </item>
+           <item row="7" column="1" colspan="2">
+            <widget class="QPushButton" name="btn_timeoffRm">
+             <property name="styleSheet">
+              <string notr="true">color: rgb(252, 175, 62);</string>
+             </property>
+             <property name="text">
+              <string>Remove</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0" rowspan="6">
+            <widget class="QListWidget" name="listWidget_timeoff">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+            </widget>
+           </item>
+           <item row="10" column="0" colspan="3">
+            <widget class="QLineEdit" name="lineEdit_timeoff">
+             <property name="styleSheet">
+              <string notr="true">color: rgb(211, 215, 207);
+border: 1px solid rgb(88, 88, 88);</string>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="1">
+            <widget class="QLabel" name="lbl_timeoff_ss">
+             <property name="text">
+              <string>Start Shift</string>
+             </property>
+            </widget>
+           </item>
+           <item row="6" column="2">
+            <widget class="QSpinBox" name="spinBox_timeoffEnd"/>
+           </item>
+           <item row="6" column="1">
+            <widget class="QLabel" name="lbl_timeoff_es">
+             <property name="text">
+              <string>End Shift</string>
+             </property>
+            </widget>
+           </item>
+           <item row="9" column="0">
+            <widget class="QLabel" name="label_5">
+             <property name="text">
+              <string>Description</string>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="2">
+            <widget class="QSpinBox" name="spinBox_timeoffStart"/>
+           </item>
+           <item row="4" column="1">
+            <widget class="QLabel" name="lbl_timeoff_ed">
+             <property name="text">
+              <string>End Date</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="2">
+            <widget class="QPushButton" name="btn_timeoffUpdate">
+             <property name="styleSheet">
+              <string notr="true">color: rgb(114, 191, 253);</string>
+             </property>
+             <property name="text">
+              <string>Update</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </widget>
-        </widget>
-       </item>
-       <item row="3" column="2" rowspan="2">
-        <widget class="QLabel" name="lbl_empId">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="MinimumExpanding" vsizetype="Minimum">
-           <horstretch>1</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">color: rgb(211, 215, 207);</string>
-         </property>
-         <property name="text">
-          <string>ID</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="3" rowspan="2">
-        <widget class="QLabel" name="lbl_empIdVal">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="MinimumExpanding" vsizetype="Minimum">
-           <horstretch>1</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">color: rgb(211, 215, 207);</string>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="2">
-        <widget class="QPushButton" name="btn_empAdd">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="MinimumExpanding" vsizetype="Minimum">
-           <horstretch>2</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>50</width>
-           <height>25</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>100000</width>
-           <height>100000</height>
-          </size>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">color: rgb(138, 226, 52);</string>
-         </property>
-         <property name="text">
-          <string>Add</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="3">
-        <widget class="QPushButton" name="btn_empSave">
-         <property name="styleSheet">
-          <string notr="true">color: rgb(138, 226, 52);</string>
-         </property>
-         <property name="text">
-          <string>Save</string>
-         </property>
         </widget>
        </item>
       </layout>
      </widget>
     </item>
-    <item row="1" column="0">
+    <item row="2" column="0">
      <widget class="QGroupBox" name="groupBox_2">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
@@ -883,16 +1153,6 @@ border-color: rgb(0, 0, 0);</string>
          </item>
         </widget>
        </item>
-       <item row="1" column="0" colspan="2">
-        <widget class="QComboBox" name="comboBox_shiftSelect">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-        </widget>
-       </item>
        <item row="1" column="2">
         <widget class="QPushButton" name="btn_shiftUpdate">
          <property name="styleSheet">
@@ -913,168 +1173,24 @@ border-color: rgb(0, 0, 0);</string>
          </property>
         </widget>
        </item>
-      </layout>
-     </widget>
-    </item>
-    <item row="0" column="1" rowspan="2">
-     <widget class="QGroupBox" name="groupBox_3">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-        <horstretch>8</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">color: white;</string>
-      </property>
-      <property name="title">
-       <string> Scheduling </string>
-      </property>
-      <layout class="QGridLayout" name="gridLayout_3">
-       <item row="0" column="1">
-        <widget class="QPushButton" name="btn_schedClear">
-         <property name="styleSheet">
-          <string notr="true">color: rgb(252, 175, 62);</string>
-         </property>
-         <property name="text">
-          <string>Clear</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="4">
-        <widget class="QPushButton" name="btn_schedAssign">
-         <property name="styleSheet">
-          <string notr="true">color: rgb(138, 226, 52);</string>
-         </property>
-         <property name="text">
-          <string>Assign</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="3">
-        <widget class="QComboBox" name="comboBox_schedAssign"/>
-       </item>
-       <item row="2" column="0" colspan="5">
-        <widget class="QTableWidget" name="tableWidget_schedule">
+       <item row="1" column="0" colspan="2">
+        <widget class="QComboBox" name="comboBox_shiftSelect">
          <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
-         <property name="styleSheet">
-          <string notr="true"/>
-         </property>
-         <property name="selectionMode">
-          <enum>QAbstractItemView::SingleSelection</enum>
-         </property>
-         <property name="rowCount">
-          <number>1</number>
-         </property>
-         <property name="columnCount">
-          <number>8</number>
-         </property>
-         <attribute name="horizontalHeaderVisible">
-          <bool>false</bool>
-         </attribute>
-         <attribute name="horizontalHeaderHighlightSections">
-          <bool>true</bool>
-         </attribute>
-         <attribute name="horizontalHeaderStretchLastSection">
-          <bool>false</bool>
-         </attribute>
-         <attribute name="verticalHeaderVisible">
-          <bool>false</bool>
-         </attribute>
-         <attribute name="verticalHeaderStretchLastSection">
-          <bool>false</bool>
-         </attribute>
-         <row/>
-         <column/>
-         <column/>
-         <column/>
-         <column/>
-         <column/>
-         <column/>
-         <column/>
-         <column/>
-         <item row="0" column="0">
-          <property name="flags">
-           <set>ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
-          </property>
-         </item>
-         <item row="0" column="1">
-          <property name="text">
-           <string>Sun</string>
-          </property>
-          <property name="flags">
-           <set>ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
-          </property>
-         </item>
-         <item row="0" column="2">
-          <property name="text">
-           <string>Mon</string>
-          </property>
-          <property name="flags">
-           <set>ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
-          </property>
-         </item>
-         <item row="0" column="3">
-          <property name="text">
-           <string>Tue</string>
-          </property>
-          <property name="flags">
-           <set>ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
-          </property>
-         </item>
-         <item row="0" column="4">
-          <property name="text">
-           <string>Wed</string>
-          </property>
-          <property name="flags">
-           <set>ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
-          </property>
-         </item>
-         <item row="0" column="5">
-          <property name="text">
-           <string>Thu</string>
-          </property>
-          <property name="flags">
-           <set>ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
-          </property>
-         </item>
-         <item row="0" column="6">
-          <property name="text">
-           <string>Fri</string>
-          </property>
-          <property name="flags">
-           <set>ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
-          </property>
-         </item>
-         <item row="0" column="7">
-          <property name="text">
-           <string>Sat</string>
-          </property>
-          <property name="flags">
-           <set>ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
-          </property>
-         </item>
         </widget>
-       </item>
-       <item row="0" column="0">
-        <widget class="QPushButton" name="btn_schedCreate">
-         <property name="styleSheet">
-          <string notr="true">color: rgb(138, 226, 52);</string>
-         </property>
-         <property name="text">
-          <string>Create</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="2">
-        <widget class="QDateEdit" name="dateEdit"/>
        </item>
       </layout>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QPushButton" name="pushButton">
+      <property name="text">
+       <string>TEST</string>
+      </property>
      </widget>
     </item>
    </layout>

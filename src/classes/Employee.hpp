@@ -4,6 +4,8 @@
 #include <string>
 #include <vector>
 
+#include "TimeOff.hpp"
+
 class Employee
 {
 	private:
@@ -21,6 +23,8 @@ class Employee
 		int min_d;
 
 		std::vector<std::vector<float>> avail;
+
+        std::vector<TimeOff> vec_toff;
 
         unsigned int priority;
 
@@ -67,6 +71,10 @@ class Employee
 
         // TEMPORARY HARD CODED
         int get_role_idx() const;
+
+        int get_vectoff_size() const;
+        TimeOff get_toff(int i) const;
+        void add_timeoff(TimeOff timeoff);
 };
 
 

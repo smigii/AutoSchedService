@@ -46,6 +46,8 @@ class Schedule
         size_t get_empwvec_size();
         // Returns the shift in pretty string form
         std::string get_emp_shift(size_t e, size_t d);
+
+        void set_timeoffs(int d);
 };
 
 #endif

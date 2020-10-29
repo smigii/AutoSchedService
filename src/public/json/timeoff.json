@@ -1,0 +1,108 @@
+[
+    {
+        "name": "Chris",
+        "off": [
+            {
+                "start day": [
+                    1,
+                    2,
+                    2020
+                ],
+                "end day": [
+                    2,
+                    2,
+                    2020
+                ],
+                "start shift": 2,
+                "end shift": 2,
+                "description": "Relaxing"
+            },
+            {
+                "start day": [
+                    23,
+                    5,
+                    2020
+                ],
+                "end day": [
+                    15,
+                    6,
+                    2020
+                ],
+                "start shift": 1,
+                "end shift": 2,
+                "description": "Relaxing"
+            },
+            {
+                "start day": [
+                    1,
+                    1,
+                    2000
+                ],
+                "end day": [
+                    1,
+                    1,
+                    2000
+                ],
+                "start shift": 1,
+                "end shift": 1,
+                "description": "Description."
+            },
+            {
+                "start day": [
+                    1,
+                    1,
+                    2000
+                ],
+                "end day": [
+                    1,
+                    1,
+                    2000
+                ],
+                "start shift": 1,
+                "end shift": 1,
+                "description": "Description."
+            },
+            {
+                "start day": [
+                    1,
+                    1,
+                    2000
+                ],
+                "end day": [
+                    1,
+                    1,
+                    2000
+                ],
+                "start shift": 1,
+                "end shift": 1,
+                "description": "Description."
+            }
+        ]
+    },
+    {
+        "name": "James"
+    },
+    {
+        "name": "Rick"
+    },
+    {
+        "name": "Mike",
+        "off": [
+            {
+                "start day": [
+                    5,
+                    5,
+                    2021
+                ],
+                "end day": [
+                    6,
+                    6,
+                    2021
+                ],
+                "start shift": 2,
+                "end shift": 2,
+                "description": "AAAAAHHHHHHH"
+            }
+        ]
+    }
+]

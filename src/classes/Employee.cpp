@@ -134,3 +134,13 @@ int Employee::get_role_idx() const{
         return 1;
     }
 }
+
+int Employee::get_vectoff_size() const{
+    return vec_toff.size();
+}
+TimeOff Employee::get_toff(int i) const{
+    return vec_toff.at(i);
+}
+void Employee::add_timeoff(TimeOff timeoff){
+    vec_toff.push_back(timeoff);
+}

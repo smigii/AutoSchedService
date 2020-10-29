@@ -14,14 +14,15 @@ INCLUDEPATH += include/nlohmann_json/
 SOURCES += \
     main.cpp \
     autoschedservice.cpp \
+    src/classes/TimeOff.cpp \
     src/public/time_conv.cpp \
     src/classes/Employee.cpp \
     src/classes/EmpWrapper.cpp \
     src/classes/Schedule.cpp \
     src/classes/Manpower.cpp
-
 HEADERS += \
     autoschedservice.h \
+    src/classes/TimeOff.hpp \
     src/public/helpers.hpp \
     src/public/time_conv.hpp \
     src/public/load_json.hpp \

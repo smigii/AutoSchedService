@@ -58,6 +58,14 @@ private slots:
 
     void on_btn_empSave_clicked();
 
+    void on_pushButton_clicked();
+
+    void on_listWidget_timeoff_currentRowChanged(int currentRow);
+
+    void on_btn_timeoffAdd_clicked();
+
+    void on_btn_timeoffUpdate_clicked();
+
 private:
     Ui::autoschedservice *ui;
 };
