@@ -298,7 +298,7 @@ std::string Schedule::get_emp_shift(size_t e, size_t d){
 void Schedule::set_timeoffs(int d){
     for(size_t e = 0; e < vec_empwrappers.size(); e++){
         for(int t = 0; t < vec_empwrappers.at(e).empptr->get_vectoff_size(); t++){
-            std::cout << vec_empwrappers.at(e).empptr->get_toff(t);
+            std::cout << vec_empwrappers.at(e).empptr->get_toff_const(t);
         }
     }
     std::cout << std::endl;

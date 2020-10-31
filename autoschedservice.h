@@ -36,6 +36,8 @@ private slots:
 
     void on_btn_empDupe_clicked();
 
+    void set_timeoff_list();
+
     void on_btn_empRm_clicked();
 
     void on_btn_empMoveUp_clicked();

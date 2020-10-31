@@ -73,7 +73,8 @@ class Employee
         int get_role_idx() const;
 
         int get_vectoff_size() const;
-        TimeOff get_toff(int i) const;
+        TimeOff* get_toff(int i);
+        TimeOff get_toff_const(int i) const;
         void add_timeoff(TimeOff timeoff);
 };
 

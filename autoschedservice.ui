@@ -981,7 +981,7 @@ QTabBar::tab:left:only-one, QTabBar::tab:right:only-one {
            <item row="2" column="0" rowspan="6">
             <widget class="QListWidget" name="listWidget_timeoff">
              <property name="sizePolicy">
-              <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
@@ -990,6 +990,12 @@ QTabBar::tab:left:only-one, QTabBar::tab:right:only-one {
            </item>
            <item row="10" column="0" colspan="3">
             <widget class="QLineEdit" name="lineEdit_timeoff">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
              <property name="styleSheet">
               <string notr="true">color: rgb(211, 215, 207);
 border: 1px solid rgb(88, 88, 88);</string>
@@ -1015,6 +1021,12 @@ border: 1px solid rgb(88, 88, 88);</string>
            </item>
            <item row="9" column="0">
             <widget class="QLabel" name="label_5">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
              <property name="text">
               <string>Description</string>
              </property>
@@ -1050,7 +1062,7 @@ border: 1px solid rgb(88, 88, 88);</string>
     <item row="2" column="0">
      <widget class="QGroupBox" name="groupBox_2">
       <property name="sizePolicy">
-       <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+       <sizepolicy hsizetype="Minimum" vsizetype="MinimumExpanding">
         <horstretch>0</horstretch>
         <verstretch>0</verstretch>
        </sizepolicy>

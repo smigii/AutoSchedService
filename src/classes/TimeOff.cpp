@@ -18,6 +18,28 @@ TimeOff::TimeOff(std::string n)
     end_shift = 1;
     description = "Description.";
 }
+//TimeOff::TimeOff(TimeOff &&to)
+//    :name{to.name}, start_date{to.start_date}, end_date{to.end_date}, start_shift{to.start_shift}, end_shift{to.end_shift}, description{to.description}
+//{
+//    set_label();
+//    std::cout << "TO MOVE CONSTRUCTOR called for " << this->name << std::endl;
+
+//}
+//TimeOff::TimeOff(const TimeOff &to)
+//    :name{to.name}, start_date{to.start_date}, end_date{to.end_date}, start_shift{to.start_shift}, end_shift{to.end_shift}, description{to.description}
+//{
+//    std::cout << "EMP COPY CONSTRUCTOR called for " << this->name << std::endl;
+//}
+
+//TimeOff& TimeOff::operator=(TimeOff &&to){
+//    name = to.name;
+//    start_date = to.start_date;
+//    end_date = to.end_date;
+//    start_shift = to.start_shift;
+//    end_shift = to.end_shift;
+//    description = to.description;
+//    return *this;
+//}
 std::ostream &operator<<(std::ostream &output, const TimeOff &Toff){
     output << "     Name : " << Toff.name << "\n"
            << "Start Day : " << Toff.start_date.at(0) << "/" << Toff.start_date.at(1) << "/" << Toff.start_date.at(2) << "\n"
@@ -91,9 +113,9 @@ void TimeOff::set_start_year(int y){
     start_date.at(2) = y;
 }
 void TimeOff::set_start_date(int d, int m, int y){
-    start_date.at(0) = d;
-    start_date.at(1) = m;
-    start_date.at(2) = y;
+    set_start_day(d);
+    set_start_month(m);
+    set_start_year(y);
 }
 
 void TimeOff::set_end_day(int d){
@@ -106,9 +128,9 @@ void TimeOff::set_end_year(int y){
     end_date.at(2) = y;
 }
 void TimeOff::set_end_date(int d, int m, int y){
-    end_date.at(0) = d;
-    end_date.at(1) = m;
-    end_date.at(2) = y;
+    set_end_day(d);
+    set_end_month(m);
+    set_end_year(y);
 }
 
 void TimeOff::set_start_shift(int s){

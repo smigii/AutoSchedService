@@ -169,13 +169,24 @@ void autoschedservice::on_listWidget_emps_itemSelectionChanged()
         }
     }
 
+    // lmao
+    ui->listWidget_timeoff->blockSignals(true);
+    ui->listWidget_timeoff->clear();
+    ui->listWidget_timeoff->blockSignals(false);
+
+    ui->listWidget_timeoff->clearSelection();
+    set_timeoff_list();
+}
+void autoschedservice::set_timeoff_list(){
+    // Set ID val
+    QListWidgetItem* itm = ui->listWidget_emps->currentItem();
+    int index = ui->listWidget_emps->row(itm);
+
     // Reset the timeoff list...
     ui->listWidget_timeoff->clear();
     // ...Then set time off list
     for(int i = 0; i < empvec.at(index).get_vectoff_size(); i++){
-        TimeOff temp = empvec.at(index).get_toff(i);
-
-        ui->listWidget_timeoff->addItem(QString::fromStdString(temp.get_label()));
+        ui->listWidget_timeoff->addItem(QString::fromStdString(empvec.at(index).get_toff(i)->get_label()));
     }
 }
 
@@ -308,6 +319,10 @@ void autoschedservice::on_btn_empMoveUp_clicked()
 {
     int index = ui->lbl_empIdVal->text().toInt();
     if(index > 0){
+        // TEMP DEBUG - Looks like we need a move constructor for TimeOff - oops
+        Employee* temp1 = &empvec.at(index);
+        Employee* temp2 = &empvec.at(index-1);
+        //
         std::cout << "\nMOVE UP" << std::endl;
         empvec.at(index).set_id(index-1);
         empvec.at(index-1).set_id(index);
@@ -494,19 +509,19 @@ void autoschedservice::on_listWidget_timeoff_currentRowChanged(int currentRow)
     else
         idx_t = currentRow;
 
-    TimeOff temp = empvec.at(idx_e).get_toff(idx_t);
+    TimeOff* temp = empvec.at(idx_e).get_toff(idx_t);
 
     QDate date, date2 = QDate();
-    date.setDate(temp.get_start_year(), temp.get_start_month(), temp.get_start_day());
-    date2.setDate(temp.get_end_year(), temp.get_end_month(), temp.get_end_day());
+    date.setDate(temp->get_start_year(), temp->get_start_month(), temp->get_start_day());
+    date2.setDate(temp->get_end_year(), temp->get_end_month(), temp->get_end_day());
 
     ui->dateEdit_timeoffStart->setDate(date);
     ui->dateEdit_timeoffEnd->setDate(date2);
 
-    ui->spinBox_timeoffStart->setValue(temp.get_start_shift());
-    ui->spinBox_timeoffEnd->setValue(temp.get_end_shift());
+    ui->spinBox_timeoffStart->setValue(temp->get_start_shift());
+    ui->spinBox_timeoffEnd->setValue(temp->get_end_shift());
 
-    ui->lineEdit_timeoff->setText(QString::fromStdString(temp.get_description()));
+    ui->lineEdit_timeoff->setText(QString::fromStdString(temp->get_description()));
 }
 
 void autoschedservice::on_btn_timeoffAdd_clicked()
@@ -525,5 +540,91 @@ void autoschedservice::on_btn_timeoffAdd_clicked()
 
 void autoschedservice::on_btn_timeoffUpdate_clicked()
 {
+    // get the id of the selected employee
+    int idx_e = ui->lbl_empIdVal->text().toInt();
+
+    // Prevents crash when pressing update on employees with no timeoffs
+    if(empvec.at(idx_e).get_vectoff_size() < 1)
+        return;
+
+    // get the row of the selected time off
+    int idx_t = ui->listWidget_timeoff->currentRow();
+    // Prevent crash when pressing update with no timeoff selected
+    if(idx_t < 0)
+        return;
+
+    /* OLD SHIT
+
+    // set all fields
+    // set start date
+    QDate new_start_date = ui->dateEdit_timeoffStart->date();
+    int nsd = (new_start_date.day() == 7) ? 0 : new_start_date.day();
+    std::vector<int> new_start_vec = std::vector<int>{nsd, new_start_date.month(), new_start_date.year()};
+
+    // set end date
+    QDate new_end_date = ui->dateEdit_timeoffEnd->date();
+    int ned = (new_end_date.day() == 7) ? 0 : new_end_date.day();
+    std::vector<int> new_end_vec = std::vector<int>{ned, new_end_date.month(), new_end_date.year()};
+
+    // set start shift
+    int new_start_shift = ui->spinBox_timeoffStart->value();
+    // set end date
+    int new_end_shift = ui->spinBox_timeoffEnd->value();
+    // set description
+    std::string new_desc = ui->lineEdit_timeoff->text().toStdString();
+
+    // Assign new values to the Employee's TimeOff
+    TimeOff temp = TimeOff(empvec.at(idx_e).get_name(), new_start_vec, new_end_vec, new_start_shift, new_end_shift, new_desc);
+    empvec.at(idx_e).set_timeoff(idx_t, temp);
+
+    // update timeoff list name and refresh it
+    ui->listWidget_timeoff->clear();
+    set_timeoff_list();
+
+    // Set the slected item back to the updated TimeOff
+    ui->listWidget_timeoff->setCurrentRow(idx_t);
+    */
+
+    // Set start dates
+    QDate new_start_date = ui->dateEdit_timeoffStart->date();
+    int nsd = (new_start_date.day() == 7) ? 0 : new_start_date.day();
+    int nsm = new_start_date.month();
+    int nsy = new_start_date.year();
+    // TEMP DEBUG
+    TimeOff* temp = empvec.at(idx_e).get_toff(idx_t);
+    //
+    empvec.at(idx_e).get_toff(idx_t)->set_start_date(nsd, nsm, nsy);
+
+    // Set end dates
+    QDate new_end_date = ui->dateEdit_timeoffEnd->date();
+    int ned = (new_end_date.day() == 7) ? 0 : new_end_date.day();
+    int nem = new_end_date.month();
+    int ney = new_end_date.year();
+    empvec.at(idx_e).get_toff(idx_t)->set_end_date(ned, nem, ney);
+
+    // Set start shift
+    int nss = ui->spinBox_timeoffStart->value();
+    empvec.at(idx_e).get_toff(idx_t)->set_start_shift(nss);
+
+    // Set end date
+    int nes = ui->spinBox_timeoffEnd->value();
+    empvec.at(idx_e).get_toff(idx_t)->set_end_shift(nes);
+
+    // Set description
+    std::string nd = ui->lineEdit_timeoff->text().toStdString();
+    empvec.at(idx_e).get_toff(idx_t)->set_description(nd);
+
+    // update timeoff list name and refresh it
+    ui->listWidget_timeoff->clear();
+    set_timeoff_list();
+
+    // Set the slected item back to the updated TimeOff
+    ui->listWidget_timeoff->setCurrentRow(idx_t);
 
 }
+
+
+
+
+
+

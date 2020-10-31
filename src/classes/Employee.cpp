@@ -6,25 +6,23 @@ Employee::Employee(unsigned int id, std::string name, std::string role, bool clo
     : id{id}, name{name}, role{role}, closer{closer}, max_h{max_h}, min_h{min_h}, max_d{max_d}, min_d{min_d}, priority{pri}
 {
 	avail.resize(7);
-    std::cout << "CONSTRUCTOR called for " << this->name << std::endl;
+    std::cout << "EMP CONSTRUCTOR called for " << this->name << std::endl;
 }
 
 Employee::Employee(const Employee &emp)
-    :id{emp.id}, name{emp.name}, role{emp.role}, closer{emp.closer}, max_h{emp.max_h}, min_h{emp.min_h}, max_d{emp.max_d}, min_d{emp.min_d}, avail{emp.avail}, priority{emp.priority}
+    :id{emp.id}, name{emp.name}, role{emp.role}, closer{emp.closer}, max_h{emp.max_h}, min_h{emp.min_h}, max_d{emp.max_d}, min_d{emp.min_d}, avail{emp.avail}, vec_toff{emp.vec_toff}, priority{emp.priority}
 {
-    std::cout << "COPY CONSTRUCTOR called for " << this->name << std::endl;
-//    name = name + " (copy)";
-//    avail = emp.avail;
+    std::cout << "EMP COPY CONSTRUCTOR called for " << this->name << std::endl;
 }
 Employee::Employee(Employee &&emp)
-    :id{emp.id}, name{emp.name}, role{emp.role}, closer{emp.closer}, max_h{emp.max_h}, min_h{emp.min_h}, max_d{emp.max_d}, min_d{emp.min_d}, avail{emp.avail}, priority{emp.priority}
+    :id{emp.id}, name{emp.name}, role{emp.role}, closer{emp.closer}, max_h{emp.max_h}, min_h{emp.min_h}, max_d{emp.max_d}, min_d{emp.min_d}, avail{emp.avail}, vec_toff{emp.vec_toff}, priority{emp.priority}
 {
-    avail = emp.avail;
-    std::cout << "MOVE CONSTRUCTOR called for " << this->name << std::endl;
+    avail = emp.avail; // i dont think this needs to be here but im a lazy coward so here it stays
+    std::cout << "EMP MOVE CONSTRUCTOR called for " << this->name << std::endl;
 
 }
 Employee::~Employee(){
-    std::cout << "DESTRUCTOR called for " << this->name << std::endl;
+    std::cout << "EMP DESTRUCTOR called for " << this->name << std::endl;
 }
 
 Employee& Employee::operator=(Employee &&emp){
@@ -38,6 +36,7 @@ Employee& Employee::operator=(Employee &&emp){
     min_h = emp.min_h;
     max_h = emp.max_h;
     avail = emp.avail;
+    vec_toff = emp.vec_toff;
     return *this;
 }
 
@@ -138,7 +137,10 @@ int Employee::get_role_idx() const{
 int Employee::get_vectoff_size() const{
     return vec_toff.size();
 }
-TimeOff Employee::get_toff(int i) const{
+TimeOff* Employee::get_toff(int i) {
+    return &vec_toff.at(i);
+}
+TimeOff Employee::get_toff_const(int i) const{
     return vec_toff.at(i);
 }
 void Employee::add_timeoff(TimeOff timeoff){

@@ -27,11 +27,11 @@ void save_timeoff(std::vector<Employee>& vec_emps){
     for(size_t e = 0; e < vec_emps.size(); e++){
         jsong[e]["name"] = vec_emps.at(e).get_name();
         for(int t = 0; t < vec_emps.at(e).get_vectoff_size(); t++){
-            jsong[e]["off"][t]["start day"] = vec_emps.at(e).get_toff(t).get_start_date();
-            jsong[e]["off"][t]["end day"] = vec_emps.at(e).get_toff(t).get_end_date();
-            jsong[e]["off"][t]["start shift"] = vec_emps.at(e).get_toff(t).get_start_shift();
-            jsong[e]["off"][t]["end shift"] = vec_emps.at(e).get_toff(t).get_end_shift();
-            jsong[e]["off"][t]["description"] = vec_emps.at(e).get_toff(t).get_description();
+            jsong[e]["off"][t]["start day"] = vec_emps.at(e).get_toff(t)->get_start_date();
+            jsong[e]["off"][t]["end day"] = vec_emps.at(e).get_toff(t)->get_end_date();
+            jsong[e]["off"][t]["start shift"] = vec_emps.at(e).get_toff(t)->get_start_shift();
+            jsong[e]["off"][t]["end shift"] = vec_emps.at(e).get_toff(t)->get_end_shift();
+            jsong[e]["off"][t]["description"] = vec_emps.at(e).get_toff(t)->get_description();
         }
     }
     ofs << jsong.dump(4);
