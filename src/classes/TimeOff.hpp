@@ -18,10 +18,7 @@ class TimeOff
     public:
         TimeOff(std::string n, std::vector<int> start_d, std::vector<int> end_d, int start_s, int end_s, std::string desc);
         TimeOff(std::string n);
-//        TimeOff(TimeOff &&to);
-//        TimeOff(const TimeOff &to);
 
-//        TimeOff& operator=(TimeOff&& to);
         friend std::ostream &operator<<(std::ostream &output, const TimeOff &Toff);
 
         // NAME //

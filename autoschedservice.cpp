@@ -319,10 +319,6 @@ void autoschedservice::on_btn_empMoveUp_clicked()
 {
     int index = ui->lbl_empIdVal->text().toInt();
     if(index > 0){
-        // TEMP DEBUG - Looks like we need a move constructor for TimeOff - oops
-        Employee* temp1 = &empvec.at(index);
-        Employee* temp2 = &empvec.at(index-1);
-        //
         std::cout << "\nMOVE UP" << std::endl;
         empvec.at(index).set_id(index-1);
         empvec.at(index-1).set_id(index);
@@ -553,46 +549,11 @@ void autoschedservice::on_btn_timeoffUpdate_clicked()
     if(idx_t < 0)
         return;
 
-    /* OLD SHIT
-
-    // set all fields
-    // set start date
-    QDate new_start_date = ui->dateEdit_timeoffStart->date();
-    int nsd = (new_start_date.day() == 7) ? 0 : new_start_date.day();
-    std::vector<int> new_start_vec = std::vector<int>{nsd, new_start_date.month(), new_start_date.year()};
-
-    // set end date
-    QDate new_end_date = ui->dateEdit_timeoffEnd->date();
-    int ned = (new_end_date.day() == 7) ? 0 : new_end_date.day();
-    std::vector<int> new_end_vec = std::vector<int>{ned, new_end_date.month(), new_end_date.year()};
-
-    // set start shift
-    int new_start_shift = ui->spinBox_timeoffStart->value();
-    // set end date
-    int new_end_shift = ui->spinBox_timeoffEnd->value();
-    // set description
-    std::string new_desc = ui->lineEdit_timeoff->text().toStdString();
-
-    // Assign new values to the Employee's TimeOff
-    TimeOff temp = TimeOff(empvec.at(idx_e).get_name(), new_start_vec, new_end_vec, new_start_shift, new_end_shift, new_desc);
-    empvec.at(idx_e).set_timeoff(idx_t, temp);
-
-    // update timeoff list name and refresh it
-    ui->listWidget_timeoff->clear();
-    set_timeoff_list();
-
-    // Set the slected item back to the updated TimeOff
-    ui->listWidget_timeoff->setCurrentRow(idx_t);
-    */
-
     // Set start dates
     QDate new_start_date = ui->dateEdit_timeoffStart->date();
     int nsd = (new_start_date.day() == 7) ? 0 : new_start_date.day();
     int nsm = new_start_date.month();
     int nsy = new_start_date.year();
-    // TEMP DEBUG
-    TimeOff* temp = empvec.at(idx_e).get_toff(idx_t);
-    //
     empvec.at(idx_e).get_toff(idx_t)->set_start_date(nsd, nsm, nsy);
 
     // Set end dates

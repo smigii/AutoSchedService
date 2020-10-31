@@ -18,28 +18,7 @@ TimeOff::TimeOff(std::string n)
     end_shift = 1;
     description = "Description.";
 }
-//TimeOff::TimeOff(TimeOff &&to)
-//    :name{to.name}, start_date{to.start_date}, end_date{to.end_date}, start_shift{to.start_shift}, end_shift{to.end_shift}, description{to.description}
-//{
-//    set_label();
-//    std::cout << "TO MOVE CONSTRUCTOR called for " << this->name << std::endl;
 
-//}
-//TimeOff::TimeOff(const TimeOff &to)
-//    :name{to.name}, start_date{to.start_date}, end_date{to.end_date}, start_shift{to.start_shift}, end_shift{to.end_shift}, description{to.description}
-//{
-//    std::cout << "EMP COPY CONSTRUCTOR called for " << this->name << std::endl;
-//}
-
-//TimeOff& TimeOff::operator=(TimeOff &&to){
-//    name = to.name;
-//    start_date = to.start_date;
-//    end_date = to.end_date;
-//    start_shift = to.start_shift;
-//    end_shift = to.end_shift;
-//    description = to.description;
-//    return *this;
-//}
 std::ostream &operator<<(std::ostream &output, const TimeOff &Toff){
     output << "     Name : " << Toff.name << "\n"
            << "Start Day : " << Toff.start_date.at(0) << "/" << Toff.start_date.at(1) << "/" << Toff.start_date.at(2) << "\n"
