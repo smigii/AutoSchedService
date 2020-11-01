@@ -1,9 +1,9 @@
 TODO
 
-DONE Create UI for manpower, should be able to create, view and edit.
+Connect REMOVE button for TimeOff window
 
-DONE Let the changes made in the program update the json files.
+Connect dateEdit of schedule to the TimeOffs
 
-Start work on supporting dates
+Add a "auto-clean" feature that, on startup, removes any time off requests whose end date has passed.
 
-Start work on supporting time off requests
+Done?

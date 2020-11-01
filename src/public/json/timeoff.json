@@ -1,5 +1,100 @@
 [
     {
+        "name": "Chris",
+        "off": [
+            {
+                "start day": [
+                    1,
+                    1,
+                    2020
+                ],
+                "end day": [
+                    20,
+                    2,
+                    2020
+                ],
+                "start shift": 2,
+                "end shift": 2,
+                "description": "Relaxing"
+            },
+            {
+                "start day": [
+                    29,
+                    12,
+                    2020
+                ],
+                "end day": [
+                    15,
+                    1,
+                    2020
+                ],
+                "start shift": 1,
+                "end shift": 6,
+                "description": "AHHHHHHHH"
+            },
+            {
+                "start day": [
+                    1,
+                    1,
+                    2000
+                ],
+                "end day": [
+                    1,
+                    1,
+                    2000
+                ],
+                "start shift": 2,
+                "end shift": 1,
+                "description": "learning java has fucked me, therefor, fuck java"
+            },
+            {
+                "start day": [
+                    1,
+                    1,
+                    2000
+                ],
+                "end day": [
+                    1,
+                    1,
+                    2000
+                ],
+                "start shift": 1,
+                "end shift": 1,
+                "description": "Description."
+            },
+            {
+                "start day": [
+                    1,
+                    1,
+                    2000
+                ],
+                "end day": [
+                    1,
+                    1,
+                    2000
+                ],
+                "start shift": 1,
+                "end shift": 1,
+                "description": "NEW DESCRIPTION"
+            },
+            {
+                "start day": [
+                    31,
+                    10,
+                    2020
+                ],
+                "end day": [
+                    12,
+                    11,
+                    2020
+                ],
+                "start shift": 2,
+                "end shift": 1,
+                "description": "FUCK THIS SHIT"
+            }
+        ]
+    },
+    {
         "name": "James"
     },
     {
@@ -26,7 +121,7 @@
         ]
     },
     {
-        "name": "Chris",
+        "name": "Landon",
         "off": [
             {
                 "start day": [

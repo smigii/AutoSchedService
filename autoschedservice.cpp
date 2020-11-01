@@ -17,6 +17,12 @@
 
 /*
 TODO:
+    Connect REMOVE button for TimeOff window
+
+    Connect dateEdit of schedule to the TimeOffs
+
+    Add a "auto-clean" feature that, on startup, removes any time off requests whose end date has passed.
+
     Need to add some string validation to time_to_float()
 
 */
